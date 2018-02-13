@@ -26,8 +26,8 @@ class SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                         val projectsJsonArray = submissionRequestJson.getJSONArray("submission_request_projects")
                         val projectsList = ArrayList<Long>()
 
-                        for (j in 0..projectsJsonArray.length()) {
-                            val projectJson = projectsJsonArray.getJSONObject(i)
+                        for (j in 0 until projectsJsonArray.length()) {
+                            val projectJson = projectsJsonArray.getJSONObject(j)
                             val projectId = projectJson.getLong("project_id")
                             projectsList.add(projectId)
                         }

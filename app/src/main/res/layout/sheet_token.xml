@@ -24,6 +24,7 @@
     <View style="@style/AppTheme.Separator.Horizontal" />
 
     <Button
+        android:id="@+id/st_update_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"

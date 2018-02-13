@@ -12,13 +12,4 @@
         android:layout_marginRight="@dimen/padding_normal"
         android:hint="@string/dit_api_key_edit_hint" />
 
-    <Button
-        android:id="@+id/am_api_confirm_button"
-        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/padding_normal"
-        android:text="@string/dit_confirm_button" />
-
 </LinearLayout>

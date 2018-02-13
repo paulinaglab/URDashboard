@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppTheme.Sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_normal"
-            android:text="21:04"
+            android:text="--:--"
+            tools:text="21:04"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
             android:textColor="@color/theme_light_textColorPrimary" />
 
@@ -44,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_small"
             android:fontFamily="sans-serif-light"
-            android:text="(2 h 52 min)"
+            tools:text="(- h - min)"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
             android:textColor="@color/theme_light_textColorTertiary"
             android:textSize="24sp" />

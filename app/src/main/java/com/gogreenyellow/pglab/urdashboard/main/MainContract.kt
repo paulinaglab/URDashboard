@@ -11,6 +11,7 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 interface MainContract {
 
     interface Presenter : BasePresenter {
+        fun refreshAll()
     }
 
     interface View : BaseView<Presenter> {

@@ -20,4 +20,6 @@
 
     <color name="separator_light_theme">#1e000000</color>
 
+    <color name="screen_dim_color">#7e607d8b</color>
+
 </resources>

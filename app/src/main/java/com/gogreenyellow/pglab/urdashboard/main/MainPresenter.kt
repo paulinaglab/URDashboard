@@ -36,4 +36,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             }
         })
     }
+
+    override fun refreshAll() {
+        //TODO: Refresh whole activity
+    }
 }
