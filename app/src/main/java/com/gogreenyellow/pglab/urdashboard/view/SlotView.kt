@@ -1,4 +1,4 @@
-package com.gogreenyellow.pglab.urdashboard
+package com.gogreenyellow.pglab.urdashboard.view
 
 import android.content.Context
 import android.util.AttributeSet

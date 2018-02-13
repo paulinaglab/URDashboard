@@ -8,23 +8,23 @@
     android:paddingBottom="16dp"
     android:paddingTop="16dp">
 
-    <com.gogreenyellow.pglab.urdashboard.SlotView
+    <com.gogreenyellow.pglab.urdashboard.view.SlotView
         android:id="@+id/slot_view_1"
         style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.SlotView
+    <com.gogreenyellow.pglab.urdashboard.view.SlotView
         android:id="@+id/slot_view_2"
         style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.SlotView
+    <com.gogreenyellow.pglab.urdashboard.view.SlotView
         android:id="@+id/slot_view_3"
         style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.SlotView
+    <com.gogreenyellow.pglab.urdashboard.view.SlotView
         android:id="@+id/slot_view_4"
         style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.SlotView
+    <com.gogreenyellow.pglab.urdashboard.view.SlotView
         android:id="@+id/slot_view_5"
         style="@style/AppTheme.Slot" />
 
