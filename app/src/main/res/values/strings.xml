@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="app_name">UR Dashboard</string>
+
+    <string name="action_open_udacity_website">Open Udacity website</string>
+
+    <string name="queue_on_label">Queue On</string>
+    <string name="queue_off_label">Queue On</string>
+
+    <string name="queue_validity_time_label">Request validity time</string>
+
+    <string name="queue_for_one_review_label">One review</string>
+    <string name="queue_for_full_label">Keep my queue full</string>
+
+    <string name="projects_label">Projects</string>
+
+</resources>
