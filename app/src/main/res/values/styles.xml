@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 
     <style name="AppTheme.Sheet">
@@ -20,6 +21,34 @@
         <item name="android:background">@drawable/slot_empty_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="AppTheme.TextView.Subhead" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/text_padding_normal</item>
+        <item name="android:paddingRight">@dimen/text_padding_normal</item>
+        <item name="android:paddingTop">@dimen/text_padding_normal</item>
+        <item name="android:paddingBottom">@dimen/text_padding_normal</item>
+    </style>
+
+    <style name="AppTheme.TextView.Subhead.Colored">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.TextView.SecondaryLineLabel" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/theme_light_textColorQuaternary</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+
+    <style name="AppTheme.Separator.Horizontal" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/separator_light_theme</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
 </resources>

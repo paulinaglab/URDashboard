@@ -1,75 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-style="@style/AppTheme.Sheet"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
-
-<TextView
-    android:id="@+id/srd_queue_status_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/queue_on_label" />
-
-<Space
-    android:id="@+id/srd_space_below_queue_status"
-    android:layout_width="match_parent"
-    android:layout_height="16dp"
-    app:layout_constraintTop_toBottomOf="@id/srd_queue_status_view" />
-
-<TextView
-    android:id="@+id/srd_queue_end_time"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="21:04"
-    app:layout_constraintTop_toBottomOf="@id/srd_space_below_queue_status" />
-
-<TextView
-    android:id="@+id/srd_queue_left_time"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="(2 h 52 min)"
-    app:layout_constraintStart_toEndOf="@id/srd_queue_end_time"
-    app:layout_constraintTop_toTopOf="@id/srd_queue_end_time" />
-
-<TextView
-    android:id="@+id/srd_queue_time_label"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/queue_validity_time_label"
-    app:layout_constraintTop_toBottomOf="@id/srd_queue_end_time" />
-
-<Space
-    android:id="@+id/srd_space_below_time"
-    android:layout_width="match_parent"
-    android:layout_height="16dp"
-    app:layout_constraintTop_toBottomOf="@id/srd_queue_time_label" />
-
-<RadioButton
-    android:id="@+id/srd_queue_for_value_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/queue_for_full_label"
-    app:layout_constraintTop_toBottomOf="@id/srd_space_below_time" />
-
-<Space
-    android:id="@+id/srd_space_below_queue_for"
-    android:layout_width="match_parent"
-    android:layout_height="16dp"
-    app:layout_constraintTop_toBottomOf="@id/srd_queue_for_value_view" />
-
-<TextView
-    android:id="@+id/srd_queue_projects_label"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/projects_label"
-    app:layout_constraintTop_toBottomOf="@id/srd_space_below_queue_for" />
-
-<LinearLayout
-    android:id="@+id/srd_projects_list_overlay"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.Sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintTop_toBottomOf="@id/srd_queue_projects_label" />
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/srs_label"
+        style="@style/AppTheme.TextView.Subhead.Colored"
+        android:text="@string/srs_label" />
+
+    <TextView
+        android:id="@+id/srs_queue_status_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:text="@string/srs_queue_on_label"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display2"
+        android:textColor="@color/theme_light_textColorPrimary" />
+
+    <View
+        style="@style/AppTheme.Separator.Horizontal"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_large" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/srs_queue_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:text="21:04"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+            android:textColor="@color/theme_light_textColorPrimary" />
+
+        <TextView
+            android:id="@+id/srs_queue_left_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_small"
+            android:fontFamily="sans-serif-light"
+            android:text="(2 h 52 min)"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+            android:textColor="@color/theme_light_textColorTertiary"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/srs_queue_time_label"
+        style="@style/AppTheme.TextView.SecondaryLineLabel"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:text="@string/srs_queue_validity_time_label" />
+
+    <Space
+        android:id="@+id/srs_space_below_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_normal" />
+
+    <TextView
+        android:id="@+id/srs_queue_for_value_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:text="@string/srs_queue_for_full_label"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="@color/theme_light_textColorPrimary"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/srs_queue_for_value_label"
+        style="@style/AppTheme.TextView.SecondaryLineLabel"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:text="@string/srs_queueing_mode_label" />
+
+    <Space
+        android:id="@+id/srs_space_below_queue_for"
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <TextView
+        android:id="@+id/srs_queue_projects_label"
+        style="@style/AppTheme.TextView.Subhead.Colored"
+        android:text="@string/srs_projects_label" />
+
+    <LinearLayout
+        android:id="@+id/srs_projects_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingTop="@dimen/padding_small" />
+
+</LinearLayout>

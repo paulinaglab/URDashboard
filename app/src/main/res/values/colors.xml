@@ -3,9 +3,21 @@
     <color name="colorPrimary">#303f4a</color>
     <color name="colorPrimaryDark">#2a333d</color>
     <color name="colorAccent">#35c9f2</color>
+    <color name="windowBackground">#dde2e6</color>
 
     <color name="custom_blue">#6986fc</color>
     <color name="custom_purple">#9754ee</color>
 
     <color name="default_project_color">#9575cd</color>
+
+    <color name="theme_light_textColorPrimary">#CF000000</color>
+    <color name="theme_light_textColorSecondary">#8A000000</color>
+    <color name="theme_light_textColorTertiary">#7F000000</color>
+    <color name="theme_light_textColorQuaternary">#4c000000</color>
+
+    <color name="dark_textColorPrimary">#ffffff</color>
+    <color name="dark_textColorSecondary">#B2ffffff</color>
+
+    <color name="separator_light_theme">#1e000000</color>
+
 </resources>

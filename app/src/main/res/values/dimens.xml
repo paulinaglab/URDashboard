@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="text_padding_small">8dp</dimen>
+    <dimen name="text_padding_normal">16dp</dimen>
+    <dimen name="text_padding_large">24dp</dimen>
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
     <dimen name="slot_size">56dp</dimen>
 
 </resources>

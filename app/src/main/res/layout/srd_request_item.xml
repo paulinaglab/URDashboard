@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/padding_normal"
+    android:layout_marginRight="@dimen/padding_normal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ri_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="No" />
+
+    <TextView
+        android:id="@+id/ri_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2000000" />
+
+    <TextView
+        android:id="@+id/ri_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2018-02-14 4:41" />
+
+    <TextView
+        android:id="@+id/ri_closed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2018-02-15 18:00" />
+
+    <TextView
+        android:id="@+id/ri_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2018-02-15 6:00" />
+
+    <LinearLayout
+        android:id="@+id/ri_projects_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingTop="@dimen/padding_small">
+
+    </LinearLayout>
+
+</LinearLayout>
