@@ -4,18 +4,18 @@
 
     <string name="action_open_udacity_website">Open Udacity website</string>
 
-
     <!-- Queue Settings (read only) -->
     <string name="srs_label">Current queue settings (read only)</string>
     <string name="srs_queue_status_label">Status</string>
     <string name="srs_queue_on_label">Queue On</string>
     <string name="srs_queue_off_label">Queue On</string>
     <string name="srs_queue_validity_time_label">Request validity time</string>
+    <string name="srs_queue_last_text">(%1d h %2d min)</string>
+    <string name="srs_queue_last_text_only_min">(%d min)</string>
     <string name="srs_queueing_mode_label">Queueing mode</string>
     <string name="srs_queue_for_one_review_label">One review</string>
     <string name="srs_queue_for_full_label">Keep my queue full</string>
     <string name="srs_projects_label">Projects</string>
-
 
     <!-- Token -->
     <string name="st_label">Udacity API key</string>
@@ -26,5 +26,8 @@
     <string name="dit_update_token_title">Update token</string>
     <string name="dit_api_key_edit_hint">Insert Reviewer API key</string>
     <string name="dit_confirm_button">Confirm</string>
+
+    <!-- Request JSON -->
+    <string name="srj_title">JSON Details</string>
 
 </resources>
