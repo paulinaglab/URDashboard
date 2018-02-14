@@ -2,9 +2,14 @@ package com.gogreenyellow.pglab.urdashboard.main
 
 import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
+import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsRepository
+import com.gogreenyellow.pglab.urdashboard.data.certifications.CertificationsDataSource
+import com.gogreenyellow.pglab.urdashboard.data.certifications.CertificationsRepository
 import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionRequestsDataSource
 import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionRequestsRepository
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
+import com.gogreenyellow.pglab.urdashboard.model.Certification
+import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 
 /**
@@ -12,12 +17,10 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
  */
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
 
-    private val submissionRequestRepository = URDashboard.instance?.submissionRequestRepository
-    private val assignedSubmissionsRepository = URDashboard.instance?.assignedSubmissionsRepository
-
     override fun start() {
-        submissionRequestRepository?.getActiveSubmissionRequests(object : SubmissionRequestsDataSource.SubmissionRequestsCallback {
+        SubmissionRequestsRepository.getActiveSubmissionRequests(object : SubmissionRequestsDataSource.SubmissionRequestsCallback {
             override fun gotSubmissionsRequests(response: ArrayList<SubmissionRequest>) {
+                getCertifications(response)
                 view.displaySubmissionRequests(response)
             }
 
@@ -26,9 +29,9 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             }
         })
 
-        assignedSubmissionsRepository?.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
+        AssignedSubmissionsRepository.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
             override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>) {
-                view.displayAssignedSubmissions(assignedSubmission)
+
             }
 
             override fun failedToGetAssignedSubmissions(code: Int) {
@@ -38,6 +41,41 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
     }
 
     override fun refreshAll() {
-        //TODO: Refresh whole activity
+        start()
+    }
+
+    private fun getCertifications(submissionRequests: List<SubmissionRequest>) {
+        CertificationsRepository.getCertifications(false,
+                object : CertificationsDataSource.CertificationsCallback {
+                    override fun gotCertifications(certifications: List<Certification>) {
+                        val list = ArrayList<QueuedProject>()
+                        certifications
+                                .filter { it.active && it.status.equals("certified", true) }
+                                .mapTo(list) {
+                                    QueuedProject(
+                                            it.projectId.toString(),
+                                            it.projectName,
+                                            it.projectPrice,
+                                            isProjectRequested(submissionRequests, it.projectId))
+                                }
+                        view.displayProjectsQueuedFor(list)
+                    }
+
+                    override fun failedToGetCertifications(errorCode: Int) {
+
+                    }
+
+                })
+    }
+
+    private fun isProjectRequested(submissionRequests: List<SubmissionRequest>,
+                                   projectId: Long): Boolean {
+        for (sr in submissionRequests) {
+            for (p in sr.projects) {
+                if (p == projectId)
+                    return true
+            }
+        }
+        return false
     }
 }

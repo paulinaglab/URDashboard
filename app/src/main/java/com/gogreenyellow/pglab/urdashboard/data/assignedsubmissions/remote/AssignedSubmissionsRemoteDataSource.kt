@@ -9,7 +9,7 @@ import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
 /**
  * Created by Paulina on 2018-02-13.
  */
-class AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
+object AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
     override fun getAssignedSubmissions(callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
         val request = AuthorizedJsonArrayRequest(Token.token,
                 "https://review-api.udacity.com/api/v1/me/submissions/assigned.json",

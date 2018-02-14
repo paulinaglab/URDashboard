@@ -4,16 +4,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
+import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 import com.gogreenyellow.pglab.urdashboard.settings.SettingsActivity
 import com.gogreenyellow.pglab.urdashboard.util.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.sheet_request_settings.*
 import kotlinx.android.synthetic.main.sheet_token.*
+import kotlinx.android.synthetic.main.srs_project_item.view.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -72,6 +75,24 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>) {
 
+    }
+
+    override fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>) {
+        srs_projects_list_container.removeAllViews()
+        for (project in queuedFor) {
+            val item = LayoutInflater.from(this).inflate(R.layout.srs_project_item,
+                    srs_projects_list_container, false)
+
+            item.pi_id_view.text = project.projectId
+            item.pi_project_name.text = project.projectName
+            item.pi_project_price.text = project.projectPrice
+            if (project.queuedFor) {
+                item.pi_project_queue_state.setImageResource(R.drawable.ic_toggle_switch)
+            } else {
+                item.pi_project_queue_state.setImageResource(R.drawable.ic_toggle_switch_off)
+            }
+            srs_projects_list_container.addView(item)
+        }
     }
 
     fun showUpdateTokenDialog() {

@@ -10,7 +10,7 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 /**
  * Created by Paulina on 2018-02-13.
  */
-class SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
+object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
 
     override fun getActiveSubmissionRequests(callback: SubmissionRequestsDataSource.SubmissionRequestsCallback) {
         val request = AuthorizedJsonArrayRequest(Token.token,
@@ -40,6 +40,6 @@ class SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                     //TODO handle errors
                     callback.failedToGetSubmissionRequest(0)
                 })
-        URDashboard.instance?.requestQueue?.add(request)
+        URDashboard.INSTANCE?.requestQueue?.add(request)
     }
 }

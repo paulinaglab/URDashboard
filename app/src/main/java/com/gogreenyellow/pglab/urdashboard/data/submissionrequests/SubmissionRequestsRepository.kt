@@ -5,11 +5,9 @@ import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.remote.Submis
 /**
  * Created by Paulina on 2018-02-13.
  */
-class SubmissionRequestsRepository : SubmissionRequestsDataSource {
-
-    private val remoteSubmissionRequestSource = SubmissionRequestsRemoteDataSource()
+object SubmissionRequestsRepository : SubmissionRequestsDataSource {
 
     override fun getActiveSubmissionRequests(callback: SubmissionRequestsDataSource.SubmissionRequestsCallback) {
-        remoteSubmissionRequestSource.getActiveSubmissionRequests(callback)
+        SubmissionRequestsRemoteDataSource.getActiveSubmissionRequests(callback)
     }
 }

@@ -1,10 +1,10 @@
 package com.gogreenyellow.pglab.urdashboard
 
 import android.app.Application
+import android.arch.persistence.room.Room
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
-import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsRepository
-import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionRequestsRepository
+import com.gogreenyellow.pglab.urdashboard.database.URDashboardDatabase
 
 /**
  * Created by Paulina on 2018-02-13.
@@ -12,17 +12,19 @@ import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionReq
 class URDashboard : Application() {
 
     companion object {
-        var instance: URDashboard? = null
+        lateinit var INSTANCE: URDashboard
+            private set
     }
 
     lateinit var requestQueue: RequestQueue
-    val submissionRequestRepository = SubmissionRequestsRepository()
-    val assignedSubmissionsRepository = AssignedSubmissionsRepository()
+    lateinit var database: URDashboardDatabase
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        INSTANCE = this
         requestQueue = Volley.newRequestQueue(this)
+        database = Room.databaseBuilder(this, URDashboardDatabase::class.java, "database")
+                .allowMainThreadQueries().build()
     }
 
 }

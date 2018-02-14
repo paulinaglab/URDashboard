@@ -5,11 +5,9 @@ import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.remote.Assig
 /**
  * Created by Paulina on 2018-02-13.
  */
-class AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
-
-    private var remoteAssignedSubmissionsSource = AssignedSubmissionsRemoteDataSource()
+object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
 
     override fun getAssignedSubmissions(callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
-        remoteAssignedSubmissionsSource.getAssignedSubmissions(callback)
+        AssignedSubmissionsRemoteDataSource.getAssignedSubmissions(callback)
     }
 }

@@ -3,6 +3,7 @@ package com.gogreenyellow.pglab.urdashboard.main
 import com.gogreenyellow.pglab.urdashboard.BasePresenter
 import com.gogreenyellow.pglab.urdashboard.BaseView
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
+import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 
 /**
@@ -17,7 +18,7 @@ interface MainContract {
     interface View : BaseView<Presenter> {
         fun displaySubmissionRequests(submissionRequests: List<SubmissionRequest>)
         fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>)
-
+        fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>)
     }
 
 }
