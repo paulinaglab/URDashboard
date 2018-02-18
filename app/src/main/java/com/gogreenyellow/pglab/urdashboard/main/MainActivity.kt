@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             val root = inflater.inflate(R.layout.srj_request_item, ri_projects_container, false)
             root.ri_index.text = submissionRequests.indexOf(submissionRequest).toString()
             root.ri_created.text = submissionRequest.createdAt
-            root.ri_closed.text = submissionRequest.closedAt
+            root.ri_close.text = submissionRequest.closedAt
             root.ri_updated.text = submissionRequest.updatedAt
             for (project in submissionRequest.projects) {
                 val projectLayout = inflater.inflate(R.layout.srj_request_project_item, root.ri_projects_container, false)
@@ -119,9 +118,11 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         }
     }
 
-    override fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>) {
+    override fun displayProjectsQueuedFor(queuedProjects: List<QueuedProject>) {
+        val sorted = queuedProjects.sortedWith(compareBy { !it.queuedFor })
+
         srs_projects_list_container.removeAllViews()
-        for (project in queuedFor) {
+        for (project in sorted) {
             val item = LayoutInflater.from(this).inflate(R.layout.srs_project_item,
                     srs_projects_list_container, false)
 

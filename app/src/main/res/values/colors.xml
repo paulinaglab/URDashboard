@@ -5,11 +5,12 @@
     <color name="colorAccent">#35c9f2</color>
     <color name="windowBackground">#dde2e6</color>
 
+    <color name="custom_aqua">#76eccf</color>
     <color name="custom_blue">#6986fc</color>
     <color name="custom_purple">#9754ee</color>
 
     <color name="default_project_color">#9b62ff</color>
-    <color name="default_project_color_off">#8fa4ae</color>
+    <color name="default_project_color_off">#b7c2c7</color>
 
     <color name="theme_light_textColorPrimary">#CF000000</color>
     <color name="theme_light_textColorSecondary">#8A000000</color>

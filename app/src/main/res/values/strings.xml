@@ -31,6 +31,10 @@
 
     <!-- Request JSON -->
     <string name="srj_title">JSON Details</string>
+    <string name="srj_request_id_label">Request id:</string>
+    <string name="srj_created_label">Created:</string>
+    <string name="srj_close_label">Close:</string>
+    <string name="srj_updated_label">Updated:</string>
 
     <!-- Settings -->
     <string name="settings_activity_title">Settings</string>

@@ -19,7 +19,8 @@
         android:layout_marginBottom="@dimen/padding_normal"
         android:paddingLeft="@dimen/padding_normal"
         android:paddingRight="@dimen/padding_normal"
-        android:text="@string/st_token_expires_text" />
+        android:text="@string/st_token_expires_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
     <View style="@style/AppTheme.Separator.Horizontal" />
 
