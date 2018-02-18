@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.srj_request_item.*
 import kotlinx.android.synthetic.main.srj_request_item.view.*
 import kotlinx.android.synthetic.main.srj_request_project_item.view.*
 import kotlinx.android.synthetic.main.srs_project_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.TokenUpdatesListener {
 
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
     companion object {
         const val UDACITY_DASHBOARD_URL = "https://mentor-dashboard.udacity.com/reviews/overview"
         const val UPDATE_TOKEN_DIALOG_TAG = "update_token_dialog"
+        val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd HH:mm")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,9 +88,9 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             val root = inflater.inflate(R.layout.srj_request_item, ri_projects_container, false)
             root.ri_index.text = submissionRequests.indexOf(submissionRequest).toString()
             root.ri_id.text = submissionRequest.id.toString()
-            root.ri_created.text = submissionRequest.createdAt
-            root.ri_close.text = submissionRequest.closedAt
-            root.ri_updated.text = submissionRequest.updatedAt
+            root.ri_created.text = formatDate(submissionRequest.createdAt)
+            root.ri_close.text = formatDate(submissionRequest.closedAt)
+            root.ri_updated.text = formatDate(submissionRequest.updatedAt)
             for (project in submissionRequest.projects) {
                 val projectLayout = inflater.inflate(R.layout.srj_request_project_item, root.ri_projects_container, false)
                 projectLayout.ri_project_id.text = project.toString()
@@ -101,7 +104,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         for (submission in assignedSubmissions) {
             val slot = ss_slots_overlay.getChildAt(assignedSubmissions.indexOf(submission)) as TextView
 
-            val customShortId = resources.getIdentifier("project_short_${submission.projectId}", "string", packageName)
+            val customShortId = resources.getIdentifier(
+                    "project_short_${submission.projectId}", "string", packageName)
             if (customShortId != 0)
                 slot.text = resources.getString(customShortId)
             else
@@ -169,6 +173,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         if (customColorId != 0)
             return resources.getColor(customColorId)
         return null
+    }
+
+    fun formatDate(date: String): String {
+        return DATE_FORMAT.format(Date(DateUtil.getUdacityTimeInMillis(date)))
     }
 
 }
