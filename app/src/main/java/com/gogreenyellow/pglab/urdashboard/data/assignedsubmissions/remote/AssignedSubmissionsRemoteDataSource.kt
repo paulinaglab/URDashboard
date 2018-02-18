@@ -2,6 +2,7 @@ package com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.remote
 
 import com.android.volley.Response
 import com.gogreenyellow.pglab.urdashboard.Token
+import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.api.AuthorizedJsonArrayRequest
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
@@ -32,5 +33,6 @@ object AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
                     //TODO: handle the errors
                     callback.failedToGetAssignedSubmissions(0)
                 })
+        URDashboard.INSTANCE.requestQueue.add(request)
     }
 }

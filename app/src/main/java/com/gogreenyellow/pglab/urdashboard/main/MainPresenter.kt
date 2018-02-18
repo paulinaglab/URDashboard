@@ -1,5 +1,6 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
+import android.util.Log
 import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsRepository
@@ -31,11 +32,10 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
         AssignedSubmissionsRepository.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
             override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>) {
-
+                view.displayAssignedSubmissions(assignedSubmission)
             }
 
             override fun failedToGetAssignedSubmissions(code: Int) {
-
             }
         })
     }
