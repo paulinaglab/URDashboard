@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             val inflater = LayoutInflater.from(this)
             val root = inflater.inflate(R.layout.srj_request_item, ri_projects_container, false)
             root.ri_index.text = submissionRequests.indexOf(submissionRequest).toString()
+            root.ri_id.text = submissionRequest.id.toString()
             root.ri_created.text = submissionRequest.createdAt
             root.ri_close.text = submissionRequest.closedAt
             root.ri_updated.text = submissionRequest.updatedAt
