@@ -21,7 +21,9 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                     for (i in 0 until it.length()) {
                         val submissionRequestJson = it.getJSONObject(i)
                         val id = submissionRequestJson.getLong("id")
+                        val createdAt = submissionRequestJson.getString("created_at")
                         val closedAt = submissionRequestJson.getString("closed_at")
+                        val updatedAt = submissionRequestJson.getString("updated_at")
                         val status = submissionRequestJson.getString("status")
                         val projectsJsonArray = submissionRequestJson.getJSONArray("submission_request_projects")
                         val projectsList = ArrayList<Long>()
@@ -31,7 +33,7 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                             val projectId = projectJson.getLong("project_id")
                             projectsList.add(projectId)
                         }
-                        response.add(SubmissionRequest(id, closedAt, status, projectsList))
+                        response.add(SubmissionRequest(id, createdAt, closedAt, updatedAt, status, projectsList))
                     }
 
                     callback.gotSubmissionsRequests(response)
@@ -40,6 +42,6 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                     //TODO handle errors
                     callback.failedToGetSubmissionRequest(0)
                 })
-        URDashboard.INSTANCE?.requestQueue?.add(request)
+        URDashboard.INSTANCE.requestQueue.add(request)
     }
 }

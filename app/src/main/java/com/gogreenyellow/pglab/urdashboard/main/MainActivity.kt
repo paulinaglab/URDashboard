@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
@@ -16,9 +17,13 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 import com.gogreenyellow.pglab.urdashboard.settings.SettingsActivity
 import com.gogreenyellow.pglab.urdashboard.util.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.sheet_request_json.*
 import kotlinx.android.synthetic.main.sheet_request_settings.*
 import kotlinx.android.synthetic.main.sheet_slots.*
 import kotlinx.android.synthetic.main.sheet_token.*
+import kotlinx.android.synthetic.main.srj_request_item.*
+import kotlinx.android.synthetic.main.srj_request_item.view.*
+import kotlinx.android.synthetic.main.srj_request_project_item.view.*
 import kotlinx.android.synthetic.main.srs_project_item.view.*
 
 class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.TokenUpdatesListener {
@@ -73,6 +78,22 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             val first = submissionRequests.get(0)
             srs_queue_left_time.text = DateUtil.getTimeLeft(first.closedAt, this)
             srs_queue_end_time.text = DateUtil.getTime(first.closedAt)
+        }
+
+        srj_requests_container.removeAllViews()
+        for (submissionRequest in submissionRequests) {
+            val inflater = LayoutInflater.from(this)
+            val root = inflater.inflate(R.layout.srj_request_item, ri_projects_container, false)
+            root.ri_index.text = submissionRequests.indexOf(submissionRequest).toString()
+            root.ri_created.text = submissionRequest.createdAt
+            root.ri_closed.text = submissionRequest.closedAt
+            root.ri_updated.text = submissionRequest.updatedAt
+            for (project in submissionRequest.projects) {
+                val projectLayout = inflater.inflate(R.layout.srj_request_project_item, root.ri_projects_container, false)
+                projectLayout.ri_project_id.text = project.toString()
+                root.ri_projects_container.addView(projectLayout)
+            }
+            srj_requests_container.addView(root)
         }
     }
 
