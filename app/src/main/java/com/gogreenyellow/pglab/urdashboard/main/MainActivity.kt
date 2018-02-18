@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
     override fun showTokenDialog(cancelable: Boolean) {
         val dialog = UpdateTokenDialog.newInstance(cancelable)
-        dialog.isCancelable = false
+        dialog.isCancelable = cancelable
         dialog.show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
     }
 
