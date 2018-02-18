@@ -13,20 +13,14 @@ object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
         AssignedSubmissionsRemoteDataSource.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
             override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
                 for (submission in assignedSubmission) {
-                    AssignedSubmissionsLocalDataSource
-                            .getAssignedSubmissionBySubmissionIdAndDate(submission.submissionId,
-                                    submission.assignedAt,
-                                    object : AssignedSubmissionsDataSource.AssignedSubmissionCallback {
-                                        override fun gotAssignedSubmission(assignedSubmission: AssignedSubmission) {
-
-                                        }
-
-                                        override fun failedToGetAssignedSubmissions(code: Int) {
-                                            AssignedSubmissionsLocalDataSource.saveAssignedSubmission(submission)
-                                        }
-                                    })
+                    val localSubmission = AssignedSubmissionsLocalDataSource.getAssignedSubmissionBySubmissionIdAndDate(submission.submissionId,
+                            submission.assignedAt)
+                    if (localSubmission != null) {
+                        callback.gotAssignedSubmissions(assignedSubmission, true)
+                        return
+                    }
                 }
-
+                callback.gotAssignedSubmissions(assignedSubmission, false)
             }
 
             override fun failedToGetAssignedSubmissions(code: Int) {
@@ -37,8 +31,8 @@ object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
     }
 
     override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long,
-                                                            time: String,
-                                                            callback: AssignedSubmissionsDataSource.AssignedSubmissionCallback) {
+                                                            time: String): AssignedSubmission? {
+        return null
     }
 
     override fun saveAssignedSubmission(assigned: AssignedSubmission) {

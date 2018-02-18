@@ -37,8 +37,8 @@ object AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
         URDashboard.INSTANCE.requestQueue.add(request)
     }
 
-    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String, callback: AssignedSubmissionsDataSource.AssignedSubmissionCallback) {
-
+    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String): AssignedSubmission? {
+        return null
     }
 
     override fun saveAssignedSubmission(assigned: AssignedSubmission) {

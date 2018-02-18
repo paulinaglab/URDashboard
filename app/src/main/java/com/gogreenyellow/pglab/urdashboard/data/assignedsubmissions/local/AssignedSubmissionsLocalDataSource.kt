@@ -16,13 +16,8 @@ object AssignedSubmissionsLocalDataSource : AssignedSubmissionsDataSource {
         callback.gotAssignedSubmissions(assignedSubmissionsDao.getAllAssignedSubmissions(), false)
     }
 
-    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String, callback: AssignedSubmissionsDataSource.AssignedSubmissionCallback) {
-        val submission = assignedSubmissionsDao.getAssignedSubmissionByIdAndTime(id, time)
-        if (submission == null) {
-            callback.failedToGetAssignedSubmissions(AssignedSubmissionsDataSource.ERROR_CODE_NON_EXISTENT)
-        } else {
-            callback.gotAssignedSubmission(submission)
-        }
+    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String):AssignedSubmission? {
+        return assignedSubmissionsDao.getAssignedSubmissionByIdAndTime(id, time)
     }
 
     override fun saveAssignedSubmission(assigned: AssignedSubmission) {
