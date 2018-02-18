@@ -2,14 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_normal"
+    android:paddingRight="@dimen/padding_normal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dit_desc"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/theme_light_textColorSecondary"
+        android:padding="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_small"
+        android:lineSpacingMultiplier="1.5"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dit_warning"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:padding="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_small"
+        android:lineSpacingMultiplier="1.5"/>
 
     <EditText
         android:id="@+id/am_token_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_normal"
-        android:layout_marginRight="@dimen/padding_normal"
-        android:hint="@string/dit_api_key_edit_hint" />
+        android:hint="@string/dit_api_key_edit_hint"
+        android:layout_margin="4dp"/>
 
 </LinearLayout>

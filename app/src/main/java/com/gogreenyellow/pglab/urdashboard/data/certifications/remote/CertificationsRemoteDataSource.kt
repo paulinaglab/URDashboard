@@ -1,7 +1,6 @@
 package com.gogreenyellow.pglab.urdashboard.data.certifications.remote
 
 import com.android.volley.Response
-import com.gogreenyellow.pglab.urdashboard.Token
 import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.api.AuthorizedJsonArrayRequest
 import com.gogreenyellow.pglab.urdashboard.data.certifications.CertificationsDataSource

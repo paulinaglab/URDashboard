@@ -1,8 +1,5 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
-import android.util.Log
-import com.gogreenyellow.pglab.urdashboard.Token
-import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsRepository
 import com.gogreenyellow.pglab.urdashboard.data.certifications.CertificationsDataSource

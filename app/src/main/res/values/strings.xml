@@ -20,12 +20,14 @@
 
     <!-- Token -->
     <string name="st_label">Udacity API key</string>
-    <string name="st_token_expires_text">Token expires: %1$s (in %2$d days)</string>
+    <string name="st_token_expires_text">Token expires in %2$d days (%1$s)</string>
     <string name="st_token_inactive">TOKEN INACTIVE</string>
     <string name="st_update_token_button_label">Update token now</string>
 
     <string name="dit_update_token_title">Update Reviewer token</string>
-    <string name="dit_api_key_edit_hint">Insert New Dashboard API key</string>
+    <string name="dit_desc">Insert the token to get the information from Udacity Mentorship Dashboard.</string>
+    <string name="dit_warning">This app is not compatible with the key you can get via \"API Access\" button from the previous Reviewer Dashboard.</string>
+    <string name="dit_api_key_edit_hint">New Dashboard API key</string>
     <string name="dit_update_button">Update token</string>
     <string name="dit_cancel_button">Cancel</string>
 
