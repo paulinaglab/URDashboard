@@ -13,7 +13,7 @@ interface AssignedSubmissionsDataSource {
 
 
     fun saveAssignedSubmission(assigned: AssignedSubmission)
-    fun getAssignedSubmissions(callback: AssignedSubmissionsCallback)
+    fun getAssignedSubmissions(token: String, callback: AssignedSubmissionsCallback)
     fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String): AssignedSubmission?
 
 

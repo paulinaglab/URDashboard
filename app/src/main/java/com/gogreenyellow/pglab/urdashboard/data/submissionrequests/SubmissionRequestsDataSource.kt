@@ -7,7 +7,7 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
  */
 interface SubmissionRequestsDataSource {
 
-    fun getActiveSubmissionRequests(callback: SubmissionRequestsCallback)
+    fun getActiveSubmissionRequests(token: String, callback: SubmissionRequestsCallback)
 
     interface SubmissionRequestsCallback {
         fun gotSubmissionsRequests(response: ArrayList<SubmissionRequest>)

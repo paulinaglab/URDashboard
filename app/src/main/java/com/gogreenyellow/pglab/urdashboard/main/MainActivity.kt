@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.gogreenyellow.pglab.urdashboard.R
+import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
 import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
@@ -45,10 +46,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
         am_swipe_refresh_layout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         am_swipe_refresh_layout.setOnRefreshListener({
-            presenter.refreshAll()
+            presenter.refreshAll(getToken(), true)
         })
 
-        st_update_button.setOnClickListener { showUpdateTokenDialog() }
+        st_update_button.setOnClickListener { showTokenDialog(true) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
     override fun onResume() {
         super.onResume()
-        presenter.start()
+        presenter.refreshAll(getToken(), false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -161,11 +162,17 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
     }
 
     override fun tokenUpdated() {
-        presenter.refreshAll()
+        presenter.refreshAll(getToken(), true)
     }
 
-    private fun showUpdateTokenDialog() {
-        UpdateTokenDialog().show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
+    override fun tokenUpdateFailed(cancelable: Boolean) {
+        showTokenDialog(cancelable)
+    }
+
+    override fun showTokenDialog(cancelable: Boolean) {
+        val dialog = UpdateTokenDialog.newInstance(cancelable)
+        dialog.isCancelable = false
+        dialog.show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
     }
 
     fun getProjectColor(projectId: Long): Int? {
@@ -179,4 +186,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         return DATE_FORMAT.format(Date(DateUtil.getUdacityTimeInMillis(date)))
     }
 
+    fun getToken(): String? {
+        return PreferenceStorage.getInstance(this)?.token
+    }
 }

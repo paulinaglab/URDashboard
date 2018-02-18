@@ -12,8 +12,8 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
  */
 object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
 
-    override fun getActiveSubmissionRequests(callback: SubmissionRequestsDataSource.SubmissionRequestsCallback) {
-        val request = AuthorizedJsonArrayRequest(Token.token,
+    override fun getActiveSubmissionRequests(token: String, callback: SubmissionRequestsDataSource.SubmissionRequestsCallback) {
+        val request = AuthorizedJsonArrayRequest(token,
                 "https://review-api.udacity.com/api/v1/me/submission_requests.json",
                 Response.Listener {
                     val response = ArrayList<SubmissionRequest>()

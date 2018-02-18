@@ -11,7 +11,8 @@ object CertificationsLocalDataSource : CertificationsDataSource {
 
     private var certificationsDao = URDashboard.INSTANCE.database.certificationsDao()
 
-    override fun getCertifications(forceRefresh: Boolean,
+    override fun getCertifications(token: String,
+                                   forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
         //TODO: asynchronously
         callback.gotCertifications(certificationsDao.getAllCertifications())

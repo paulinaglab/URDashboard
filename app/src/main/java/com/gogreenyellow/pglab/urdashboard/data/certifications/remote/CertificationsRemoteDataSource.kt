@@ -12,9 +12,10 @@ import com.gogreenyellow.pglab.urdashboard.model.Certification
  */
 object CertificationsRemoteDataSource : CertificationsDataSource {
 
-    override fun getCertifications(forceRefresh: Boolean,
+    override fun getCertifications(token: String,
+                                   forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
-        val request = AuthorizedJsonArrayRequest(Token.token,
+        val request = AuthorizedJsonArrayRequest(token,
                 "https://review-api.udacity.com/api/v1/me/certifications.json",
                 Response.Listener {
                     val response = ArrayList<Certification>()

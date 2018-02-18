@@ -6,7 +6,7 @@ import com.gogreenyellow.pglab.urdashboard.model.Certification
  * Created by Paulina on 2018-02-14.
  */
 interface CertificationsDataSource {
-    fun getCertifications(forceRefresh: Boolean, callback: CertificationsCallback)
+    fun getCertifications(token: String, forceRefresh: Boolean, callback: CertificationsCallback)
 
     fun saveCertifications(certifications: List<Certification>, callback: SaveCertificationsCallback)
 

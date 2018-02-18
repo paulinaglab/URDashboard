@@ -9,10 +9,11 @@ import com.gogreenyellow.pglab.urdashboard.model.Certification
  */
 object CertificationsRepository : CertificationsDataSource {
 
-    override fun getCertifications(forceRefresh: Boolean,
+    override fun getCertifications(token: String,
+                                   forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
         if (forceRefresh) {
-            CertificationsRemoteDataSource.getCertifications(false,
+            CertificationsRemoteDataSource.getCertifications(token, false,
                     object : CertificationsDataSource.CertificationsCallback {
                         override fun gotCertifications(certifications: List<Certification>) {
                             CertificationsLocalDataSource.saveCertifications(certifications,
@@ -33,11 +34,11 @@ object CertificationsRepository : CertificationsDataSource {
 
                     })
         } else {
-            CertificationsLocalDataSource.getCertifications(false,
+            CertificationsLocalDataSource.getCertifications(token, false,
                     object : CertificationsDataSource.CertificationsCallback {
                         override fun gotCertifications(certifications: List<Certification>) {
                             if (certifications.isEmpty()) {
-                                getCertifications(true, callback)
+                                getCertifications(token, true, callback)
                             } else {
                                 callback.gotCertifications(certifications)
                             }

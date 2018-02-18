@@ -12,11 +12,11 @@ object AssignedSubmissionsLocalDataSource : AssignedSubmissionsDataSource {
 
     private var assignedSubmissionsDao: AssignedSubmissionsDao = URDashboard.INSTANCE.database.assignedSubmissionsDao();
 
-    override fun getAssignedSubmissions(callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
+    override fun getAssignedSubmissions(token: String, callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
         callback.gotAssignedSubmissions(assignedSubmissionsDao.getAllAssignedSubmissions(), false)
     }
 
-    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String):AssignedSubmission? {
+    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String): AssignedSubmission? {
         return assignedSubmissionsDao.getAssignedSubmissionByIdAndTime(id, time)
     }
 

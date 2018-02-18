@@ -9,8 +9,8 @@ import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
  */
 object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
 
-    override fun getAssignedSubmissions(callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
-        AssignedSubmissionsRemoteDataSource.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
+    override fun getAssignedSubmissions(token: String, callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
+        AssignedSubmissionsRemoteDataSource.getAssignedSubmissions(token, object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
             override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
                 for (submission in assignedSubmission) {
                     val localSubmission = AssignedSubmissionsLocalDataSource.getAssignedSubmissionBySubmissionIdAndDate(submission.submissionId,

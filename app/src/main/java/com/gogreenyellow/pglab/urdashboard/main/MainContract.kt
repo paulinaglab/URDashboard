@@ -12,7 +12,7 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 interface MainContract {
 
     interface Presenter : BasePresenter {
-        fun refreshAll()
+        fun refreshAll(token: String?, force: Boolean)
     }
 
     interface View : BaseView<Presenter> {
@@ -21,6 +21,7 @@ interface MainContract {
         fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>)
         fun hideRefreshing()
         fun displayTokenData(expiresIn: Long, expirationDate: String)
+        fun showTokenDialog(cancelable: Boolean)
     }
 
 }

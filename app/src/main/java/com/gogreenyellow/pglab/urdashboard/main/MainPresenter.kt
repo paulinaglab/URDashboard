@@ -21,10 +21,19 @@ import com.gogreenyellow.pglab.urdashboard.util.TokenUtil
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
 
     override fun start() {
+
+    }
+
+    override fun refreshAll(token: String?, force: Boolean) {
+        if (token == null || TokenUtil.getTokenExpiresIn(token) <= 0) {
+            view.showTokenDialog(false)
+            return
+        }
+
         var runningRefresh = 2
-        SubmissionRequestsRepository.getActiveSubmissionRequests(object : SubmissionRequestsDataSource.SubmissionRequestsCallback {
+        SubmissionRequestsRepository.getActiveSubmissionRequests(token, object : SubmissionRequestsDataSource.SubmissionRequestsCallback {
             override fun gotSubmissionsRequests(response: ArrayList<SubmissionRequest>) {
-                getCertifications(response)
+                getCertifications(token, response)
                 view.displaySubmissionRequests(response)
                 runningRefresh--
                 if (runningRefresh == 0)
@@ -38,7 +47,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             }
         })
 
-        AssignedSubmissionsRepository.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
+        AssignedSubmissionsRepository.getAssignedSubmissions(token, object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
             override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
                 view.displayAssignedSubmissions(assignedSubmission)
                 runningRefresh--
@@ -53,16 +62,12 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             }
         })
 
-        view.displayTokenData(TokenUtil.getTokenExpiresIn(Token.token),
-                TokenUtil.getTokenExpirationDate(Token.token))
+        view.displayTokenData(TokenUtil.getTokenExpiresIn(token),
+                TokenUtil.getTokenExpirationDate(token))
     }
 
-    override fun refreshAll() {
-        start()
-    }
-
-    private fun getCertifications(submissionRequests: List<SubmissionRequest>) {
-        CertificationsRepository.getCertifications(false,
+    private fun getCertifications(token: String, submissionRequests: List<SubmissionRequest>) {
+        CertificationsRepository.getCertifications(token, false,
                 object : CertificationsDataSource.CertificationsCallback {
                     override fun gotCertifications(certifications: List<Certification>) {
                         val list = ArrayList<QueuedProject>()
