@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="128dp"
     android:background="@drawable/gradient_bg"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingBottom="16dp"
     android:paddingTop="16dp">
 
-    <com.gogreenyellow.pglab.urdashboard.view.SlotView
-        android:id="@+id/slot_view_1"
-        style="@style/AppTheme.Slot" />
+    <LinearLayout
+        android:id="@+id/ss_slots_overlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <com.gogreenyellow.pglab.urdashboard.view.SlotView
-        android:id="@+id/slot_view_2"
-        style="@style/AppTheme.Slot" />
+        <com.gogreenyellow.pglab.urdashboard.view.SlotView
+            android:id="@+id/slot_view_1"
+            style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.view.SlotView
-        android:id="@+id/slot_view_3"
-        style="@style/AppTheme.Slot" />
+        <com.gogreenyellow.pglab.urdashboard.view.SlotView
+            android:id="@+id/slot_view_2"
+            style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.view.SlotView
-        android:id="@+id/slot_view_4"
-        style="@style/AppTheme.Slot" />
+        <com.gogreenyellow.pglab.urdashboard.view.SlotView
+            android:id="@+id/slot_view_3"
+            style="@style/AppTheme.Slot" />
 
-    <com.gogreenyellow.pglab.urdashboard.view.SlotView
-        android:id="@+id/slot_view_5"
-        style="@style/AppTheme.Slot" />
+        <com.gogreenyellow.pglab.urdashboard.view.SlotView
+            android:id="@+id/slot_view_4"
+            style="@style/AppTheme.Slot" />
+
+        <com.gogreenyellow.pglab.urdashboard.view.SlotView
+            android:id="@+id/slot_view_5"
+            style="@style/AppTheme.Slot" />
+
+    </LinearLayout>
 
 </LinearLayout>

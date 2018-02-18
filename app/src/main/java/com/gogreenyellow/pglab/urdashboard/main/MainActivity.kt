@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
 import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
@@ -15,6 +16,7 @@ import com.gogreenyellow.pglab.urdashboard.settings.SettingsActivity
 import com.gogreenyellow.pglab.urdashboard.util.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.sheet_request_settings.*
+import kotlinx.android.synthetic.main.sheet_slots.*
 import kotlinx.android.synthetic.main.sheet_token.*
 import kotlinx.android.synthetic.main.srs_project_item.view.*
 
@@ -74,7 +76,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>) {
-
+        for (submission in assignedSubmissions) {
+            val slot = ss_slots_overlay.getChildAt(assignedSubmissions.indexOf(submission)) as TextView
+            slot.text = submission.projectId.toString()
+            slot.background = resources.getDrawable(R.drawable.slot_filled_bg)
+        }
     }
 
     override fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>) {
@@ -85,7 +91,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
             item.pi_id_view.text = project.projectId
             item.pi_project_name.text = project.projectName
-            item.pi_project_price.text = project.projectPrice
+            item.pi_project_price.text = resources.getString(R.string.price_text, project.projectPrice)
             if (project.queuedFor) {
                 item.pi_project_queue_state.setImageResource(R.drawable.ic_toggle_switch)
             } else {

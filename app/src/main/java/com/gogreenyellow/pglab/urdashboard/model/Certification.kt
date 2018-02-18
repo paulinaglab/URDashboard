@@ -11,7 +11,7 @@ class Certification(val projectId: Long,
                     val status: String,
                     val active: Boolean,
                     val projectName: String,
-                    val projectPrice: String) {
+                    val projectPrice: Float) {
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0;

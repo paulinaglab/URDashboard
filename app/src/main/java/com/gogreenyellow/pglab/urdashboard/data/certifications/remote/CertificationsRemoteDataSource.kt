@@ -25,9 +25,9 @@ object CertificationsRemoteDataSource : CertificationsDataSource {
                         val active = certJson.getBoolean("active")
                         val projectJson = certJson.getJSONObject("project")
                         val projectName = projectJson.getString("name")
-                        val projectPrice = projectJson.getString("price")
+                        val projectPrice = projectJson.getDouble("price")
 
-                        response.add(Certification(projectId, status, active, projectName, projectPrice))
+                        response.add(Certification(projectId, status, active, projectName, projectPrice.toFloat()))
                     }
                     callback.gotCertifications(response)
                 },

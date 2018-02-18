@@ -41,6 +41,10 @@
     <string name="as_notify_new_assign_details">Get the info when the new review is coming</string>
     <string name="as_notify_request_inconsistency_title">Notify about request inconsistency</string>
     <string name="as_notify_request_inconsistency_details">Get the info when submission request seem incorrect</string>
+    <string name="as_notify_price_changes_title">Notify about price changes</string>
+    <string name="as_notify_price_changes_details">Get the info when the reward for project drops or rises</string>
+
+    <string name="select_notification_sound">Select sound</string>
 
 
     <!-- Commons -->

@@ -5,6 +5,6 @@ package com.gogreenyellow.pglab.urdashboard.model
  */
 class QueuedProject(val projectId: String,
                     val projectName: String,
-                    val projectPrice: String,
+                    val projectPrice: Float,
                     val queuedFor: Boolean) {
 }

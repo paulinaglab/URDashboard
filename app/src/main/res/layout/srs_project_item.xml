@@ -28,6 +28,11 @@
         android:textColor="@color/theme_light_textColorSecondary"
         tools:text="Capstone, Stage 2" />
 
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/pi_project_price"
         android:layout_width="wrap_content"
@@ -36,11 +41,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@color/theme_light_textColorTertiary"
         tools:text="$00.00" />
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/pi_project_queue_state"

@@ -7,126 +7,91 @@
     android:paddingTop="@dimen/padding_small">
 
     <TextView
-        style="@style/AppTheme.TextView.Subhead"
-        android:layout_marginBottom="@dimen/padding_small"
-        android:paddingBottom="0dp"
-        android:text="@string/as_notifications_label"
-        android:textColor="@color/colorAccent" />
+        style="@style/SettingsTheme.TextView.Subhead.Colored"
+        android:text="@string/as_notifications_label" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingBottom="@dimen/padding_normal"
-        android:paddingTop="@dimen/padding_normal">
+        android:id="@+id/as_new_review_overlay"
+        style="@style/SettingsTheme.ClickableOverlay">
 
         <TextView
             android:id="@+id/as_new_review_primary_line"
-            style="@style/AppTheme.ListItem.PrimaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            style="@style/SettingsTheme.ListItem.PrimaryLine"
+            android:layout_marginEnd="@dimen/list_item_inset"
             android:text="@string/as_notify_new_assign_title" />
 
         <TextView
-            style="@style/AppTheme.ListItem.SecondaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SettingsTheme.ListItem.SecondaryLine"
             android:layout_below="@id/as_new_review_primary_line"
-            android:layout_marginEnd="72dp"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            android:layout_marginEnd="@dimen/list_item_inset"
             android:text="@string/as_notify_new_assign_details" />
 
         <android.support.v7.widget.SwitchCompat
-            android:layout_width="56dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp" />
+            android:id="@+id/as_new_review_switch"
+            style="@style/SettingsTheme.ListItem.Switch" />
 
     </RelativeLayout>
 
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/padding_small" />
-
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingBottom="@dimen/padding_normal"
-        android:paddingTop="@dimen/padding_normal">
+        android:id="@+id/as_incorrect_request_overlay"
+        style="@style/SettingsTheme.ClickableOverlay">
 
         <TextView
             android:id="@+id/as_incorrect_request_primary_line"
-            style="@style/AppTheme.ListItem.PrimaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            style="@style/SettingsTheme.ListItem.PrimaryLine"
+            android:layout_marginEnd="@dimen/list_item_inset"
             android:text="@string/as_notify_request_inconsistency_title" />
 
         <TextView
-            style="@style/AppTheme.ListItem.SecondaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SettingsTheme.ListItem.SecondaryLine"
             android:layout_below="@id/as_incorrect_request_primary_line"
-            android:layout_marginEnd="72dp"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            android:layout_marginEnd="@dimen/list_item_inset"
             android:text="@string/as_notify_request_inconsistency_details" />
 
         <android.support.v7.widget.SwitchCompat
-            android:layout_width="56dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp" />
+            android:id="@+id/as_incorrect_request_switch"
+            style="@style/SettingsTheme.ListItem.Switch" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/as_price_changes_overlay"
+        style="@style/SettingsTheme.ClickableOverlay">
+
+        <TextView
+            android:id="@+id/as_price_changes_primary_line"
+            style="@style/SettingsTheme.ListItem.PrimaryLine"
+            android:layout_marginEnd="@dimen/list_item_inset"
+            android:text="@string/as_notify_price_changes_title" />
+
+        <TextView
+            style="@style/SettingsTheme.ListItem.SecondaryLine"
+            android:layout_below="@id/as_price_changes_primary_line"
+            android:layout_marginEnd="@dimen/list_item_inset"
+            android:text="@string/as_notify_price_changes_details" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/as_price_changes_switch"
+            style="@style/SettingsTheme.ListItem.Switch" />
 
     </RelativeLayout>
 
     <TextView
-        style="@style/AppTheme.TextView.Subhead"
-        android:layout_marginBottom="@dimen/padding_small"
-        android:paddingBottom="0dp"
-        android:text="@string/as_sounds_label"
-        android:textColor="@color/colorAccent" />
+        style="@style/SettingsTheme.TextView.Subhead.Colored"
+        android:text="@string/as_sounds_label" />
 
     <LinearLayout
-        android:id="@+id/as_notification_sound_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
+        android:id="@+id/as_notification_sound_overlay"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/padding_normal"
-        android:paddingTop="@dimen/padding_normal">
+        style="@style/SettingsTheme.ClickableOverlay">
 
         <TextView
-            style="@style/AppTheme.ListItem.PrimaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            style="@style/SettingsTheme.ListItem.PrimaryLine"
             android:text="@string/as_notification_sound" />
 
         <TextView
             android:id="@+id/as_notification_sound_name"
-            style="@style/AppTheme.ListItem.SecondaryLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/text_padding_normal"
-            android:paddingRight="@dimen/text_padding_normal"
+            style="@style/SettingsTheme.ListItem.SecondaryLine"
             android:text="@string/as_notification_sound" />
 
     </LinearLayout>
