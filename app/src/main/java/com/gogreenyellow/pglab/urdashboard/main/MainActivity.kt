@@ -1,6 +1,7 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -78,8 +79,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>) {
         for (submission in assignedSubmissions) {
             val slot = ss_slots_overlay.getChildAt(assignedSubmissions.indexOf(submission)) as TextView
-            slot.text = submission.projectId.toString()
-            slot.background = resources.getDrawable(R.drawable.slot_filled_bg)
+
+            val customShortId = resources.getIdentifier("project_short_${submission.projectId}", "string", packageName)
+            if (customShortId != 0)
+                slot.text = resources.getString(customShortId)
+            else
+                slot.text = submission.projectId.toString()
+
+            slot.background = resources.getDrawable(R.drawable.slot_filled_bg, theme)
+            val customColor = getProjectColor(submission.projectId)
+            if (customColor != null)
+                slot.background.setColorFilter(customColor, PorterDuff.Mode.SRC_IN)
+        }
+        for (i in assignedSubmissions.size until ss_slots_overlay.childCount) {
+            val slot = ss_slots_overlay.getChildAt(i) as TextView
+            slot.background = resources.getDrawable(R.drawable.slot_empty_bg)
+            slot.text = ""
         }
     }
 
@@ -89,13 +104,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             val item = LayoutInflater.from(this).inflate(R.layout.srs_project_item,
                     srs_projects_list_container, false)
 
-            item.pi_id_view.text = project.projectId
+            item.pi_id_view.text = project.projectId.toString()
             item.pi_project_name.text = project.projectName
             item.pi_project_price.text = resources.getString(R.string.price_text, project.projectPrice)
             if (project.queuedFor) {
                 item.pi_project_queue_state.setImageResource(R.drawable.ic_toggle_switch)
+
+                val customColor = getProjectColor(project.projectId)
+                if (customColor != null)
+                    item.pi_id_view.background.setColorFilter(
+                            customColor, PorterDuff.Mode.SRC_IN)
             } else {
                 item.pi_project_queue_state.setImageResource(R.drawable.ic_toggle_switch_off)
+
+                item.pi_id_view.background.setColorFilter(
+                        resources.getColor(R.color.default_project_color_off),
+                        PorterDuff.Mode.SRC_IN)
             }
             srs_projects_list_container.addView(item)
         }
@@ -103,6 +127,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     fun showUpdateTokenDialog() {
         UpdateTokenDialog().show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
+    }
+
+    fun getProjectColor(projectId: Long): Int? {
+        val customColorId = resources.getIdentifier("project_color_${projectId}", "color", packageName)
+        if (customColorId != 0)
+            return resources.getColor(customColorId)
+        return null
     }
 
 }

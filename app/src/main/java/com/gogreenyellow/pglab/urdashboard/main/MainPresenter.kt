@@ -53,7 +53,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                                 .filter { it.active && it.status.equals("certified", true) }
                                 .mapTo(list) {
                                     QueuedProject(
-                                            it.projectId.toString(),
+                                            it.projectId,
                                             it.projectName,
                                             it.projectPrice,
                                             isProjectRequested(submissionRequests, it.projectId))

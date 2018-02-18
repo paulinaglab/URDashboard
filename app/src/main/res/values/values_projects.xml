@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="project_short_64">C1</string>
+    <color name="project_color_64">#f38faf</color>
+
+    <string name="project_short_65">C2</string>
+    <color name="project_color_65">#bf77d2</color>
+
+    <string name="project_short_66">PM1</string>
+    <color name="project_color_66">#f9a825</color>
+
+    <string name="project_short_67">PM2</string>
+    <color name="project_color_67">#ff5722</color>
+
+    <string name="project_short_288">BA</string>
+    <color name="project_color_288">#3aa96f</color>
+    
+</resources>
