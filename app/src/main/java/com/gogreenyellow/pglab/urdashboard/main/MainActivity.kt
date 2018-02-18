@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.sheet_slots.*
 import kotlinx.android.synthetic.main.sheet_token.*
 import kotlinx.android.synthetic.main.srs_project_item.view.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.TokenUpdatesListener {
 
     override lateinit var presenter: MainContract.Presenter
 
@@ -133,7 +133,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         st_token_expires_date_view.text = getString(R.string.st_token_expires_text, expirationDate, expiresIn)
     }
 
-    fun showUpdateTokenDialog() {
+    override fun tokenUpdated() {
+        presenter.refreshAll()
+    }
+
+    private fun showUpdateTokenDialog() {
         UpdateTokenDialog().show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
     }
 

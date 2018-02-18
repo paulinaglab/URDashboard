@@ -11,6 +11,7 @@ import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
  * Created by Paulina on 2018-02-13.
  */
 object AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
+
     override fun getAssignedSubmissions(callback: AssignedSubmissionsDataSource.AssignedSubmissionsCallback) {
         val request = AuthorizedJsonArrayRequest(Token.token,
                 "https://review-api.udacity.com/api/v1/me/submissions/assigned.json",
@@ -27,12 +28,20 @@ object AssignedSubmissionsRemoteDataSource : AssignedSubmissionsDataSource {
 
                         response.add(AssignedSubmission(id, assignedAt, language, projectId, projectName))
                     }
-                    callback.gotAssignedSubmissions(response)
+                    callback.gotAssignedSubmissions(response, false)
                 },
                 Response.ErrorListener {
                     //TODO: handle the errors
                     callback.failedToGetAssignedSubmissions(0)
                 })
         URDashboard.INSTANCE.requestQueue.add(request)
+    }
+
+    override fun getAssignedSubmissionBySubmissionIdAndDate(id: Long, time: String, callback: AssignedSubmissionsDataSource.AssignedSubmissionCallback) {
+
+    }
+
+    override fun saveAssignedSubmission(assigned: AssignedSubmission) {
+
     }
 }

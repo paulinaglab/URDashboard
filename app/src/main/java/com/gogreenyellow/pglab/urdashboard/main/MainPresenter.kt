@@ -39,7 +39,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         })
 
         AssignedSubmissionsRepository.getAssignedSubmissions(object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
-            override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>) {
+            override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
                 view.displayAssignedSubmissions(assignedSubmission)
                 runningRefresh--
                 if (runningRefresh == 0)
@@ -87,12 +87,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
     private fun isProjectRequested(submissionRequests: List<SubmissionRequest>,
                                    projectId: Long): Boolean {
-        for (sr in submissionRequests) {
-            for (p in sr.projects) {
-                if (p == projectId)
-                    return true
-            }
-        }
-        return false
+        return submissionRequests
+                .flatMap { it.projects }
+                .contains(projectId)
     }
 }
