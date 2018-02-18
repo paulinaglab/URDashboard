@@ -19,6 +19,8 @@ interface MainContract {
         fun displaySubmissionRequests(submissionRequests: List<SubmissionRequest>)
         fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>)
         fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>)
+        fun hideRefreshing()
+        fun displayTokenData(expiresIn: Long, expirationDate: String)
     }
 
 }

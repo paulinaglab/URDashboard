@@ -20,7 +20,7 @@
 
     <!-- Token -->
     <string name="st_label">Udacity API key</string>
-    <string name="st_token_expires_text">Token expires: %s (in %d days)</string>
+    <string name="st_token_expires_text">Token expires: %1$s (in %2$d days)</string>
     <string name="st_token_inactive">TOKEN INACTIVE</string>
     <string name="st_update_token_button_label">Update token now</string>
 

@@ -8,8 +8,10 @@ import com.gogreenyellow.pglab.urdashboard.model.Certification
 /**
  * Created by Paulina on 2018-02-14.
  */
-@Database(entities = arrayOf(Certification::class, AssignedSubmission::class), version = 1)
+@Database(entities = [(Certification::class), (AssignedSubmission::class)], version = 1)
 abstract class URDashboardDatabase : RoomDatabase() {
 
     abstract fun certificationsDao(): CertificationsDao
+
+    abstract fun assignedSubmissionsDao(): AssignedSubmissionsDao
 }

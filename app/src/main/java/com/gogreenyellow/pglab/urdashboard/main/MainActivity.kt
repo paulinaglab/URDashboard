@@ -125,6 +125,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
+    override fun hideRefreshing() {
+        am_swipe_refresh_layout.isRefreshing = false
+    }
+
+    override fun displayTokenData(expiresIn: Long, expirationDate: String) {
+        st_token_expires_date_view.text = getString(R.string.st_token_expires_text, expirationDate, expiresIn)
+    }
+
     fun showUpdateTokenDialog() {
         UpdateTokenDialog().show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
     }

@@ -17,13 +17,16 @@ class URDashboard : Application() {
     }
 
     lateinit var requestQueue: RequestQueue
+        private set
     lateinit var database: URDashboardDatabase
+        private set
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
         requestQueue = Volley.newRequestQueue(this)
         database = Room.databaseBuilder(this, URDashboardDatabase::class.java, "database")
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries().build()
     }
 

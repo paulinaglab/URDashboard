@@ -29,6 +29,7 @@ class PreferenceStorage private constructor(context: Context) {
         private val NOTIFY_NEW_ASSIGNMENT = "notify new assignment"
         private val NOTIFY_REQUEST_INCORRECT = "notify request incorrect"
         private val NOTIFY_PRICE_CHANGES = "notify price changes"
+        private val TOKEN = "token"
     }
 
 
@@ -48,7 +49,6 @@ class PreferenceStorage private constructor(context: Context) {
         get() {
             return sharedPreferences.getBoolean(NOTIFY_NEW_ASSIGNMENT, true)
         }
-
         @SuppressLint("ApplySharedPref")
         set(value) {
             sharedPreferences.edit().putBoolean(NOTIFY_NEW_ASSIGNMENT, value).commit()
@@ -58,7 +58,6 @@ class PreferenceStorage private constructor(context: Context) {
         get() {
             return sharedPreferences.getBoolean(NOTIFY_REQUEST_INCORRECT, false)
         }
-
         @SuppressLint("ApplySharedPref")
         set(value) {
             sharedPreferences.edit().putBoolean(NOTIFY_REQUEST_INCORRECT, value).commit()
@@ -68,11 +67,18 @@ class PreferenceStorage private constructor(context: Context) {
         get() {
             return sharedPreferences.getBoolean(NOTIFY_PRICE_CHANGES, true)
         }
-
         @SuppressLint("ApplySharedPref")
         set(value) {
             sharedPreferences.edit().putBoolean(NOTIFY_PRICE_CHANGES, value).commit()
         }
 
+    var token: String?
+        get() {
+            return sharedPreferences.getString(TOKEN, null)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putString(TOKEN, value).commit()
+        }
 
 }
