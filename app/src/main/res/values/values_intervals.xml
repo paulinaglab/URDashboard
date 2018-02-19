@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="as_interval_options_array">
+        <item>Send request every 3 minutes</item>
+        <item>Send request every 10 minutes</item>
+        <item>Send request every 30 minutes</item>
+    </string-array>
+
+    <integer-array name="as_interval_millis">
+        <item>18000</item>
+        <item>60000</item>
+        <item>1800000</item>
+    </integer-array>
+
+</resources>

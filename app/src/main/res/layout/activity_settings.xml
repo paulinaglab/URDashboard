@@ -1,99 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/padding_small"
-    android:paddingTop="@dimen/padding_small">
-
-    <TextView
-        style="@style/SettingsTheme.TextView.Subhead.Colored"
-        android:text="@string/as_notifications_label" />
-
-    <RelativeLayout
-        android:id="@+id/as_new_review_overlay"
-        style="@style/SettingsTheme.ClickableOverlay">
-
-        <TextView
-            android:id="@+id/as_new_review_primary_line"
-            style="@style/SettingsTheme.ListItem.PrimaryLine"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_new_assign_title" />
-
-        <TextView
-            style="@style/SettingsTheme.ListItem.SecondaryLine"
-            android:layout_below="@id/as_new_review_primary_line"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_new_assign_details" />
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/as_new_review_switch"
-            style="@style/SettingsTheme.ListItem.Switch" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/as_incorrect_request_overlay"
-        style="@style/SettingsTheme.ClickableOverlay">
-
-        <TextView
-            android:id="@+id/as_incorrect_request_primary_line"
-            style="@style/SettingsTheme.ListItem.PrimaryLine"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_request_inconsistency_title" />
-
-        <TextView
-            style="@style/SettingsTheme.ListItem.SecondaryLine"
-            android:layout_below="@id/as_incorrect_request_primary_line"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_request_inconsistency_details" />
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/as_incorrect_request_switch"
-            style="@style/SettingsTheme.ListItem.Switch" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/as_price_changes_overlay"
-        style="@style/SettingsTheme.ClickableOverlay">
-
-        <TextView
-            android:id="@+id/as_price_changes_primary_line"
-            style="@style/SettingsTheme.ListItem.PrimaryLine"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_price_changes_title" />
-
-        <TextView
-            style="@style/SettingsTheme.ListItem.SecondaryLine"
-            android:layout_below="@id/as_price_changes_primary_line"
-            android:layout_marginEnd="@dimen/list_item_inset"
-            android:text="@string/as_notify_price_changes_details" />
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/as_price_changes_switch"
-            style="@style/SettingsTheme.ListItem.Switch" />
-
-    </RelativeLayout>
-
-    <TextView
-        style="@style/SettingsTheme.TextView.Subhead.Colored"
-        android:text="@string/as_sounds_label" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/as_notification_sound_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        style="@style/SettingsTheme.ClickableOverlay">
+        android:paddingTop="@dimen/padding_small">
+
+        <LinearLayout
+            android:id="@+id/as_interval_overlay"
+            style="@style/SettingsTheme.ClickableOverlay"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/padding_normal"
+            android:paddingEnd="@dimen/padding_normal">
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:text="@string/as_interval_label"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"/>
+
+            <TextView
+                android:id="@+id/as_interval_value_view"
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:text="@string/as_interval_default_text"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"/>
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/AppTheme.Separator.Horizontal"
+            android:layout_marginBottom="@dimen/padding_small" />
+
 
         <TextView
-            style="@style/SettingsTheme.ListItem.PrimaryLine"
-            android:text="@string/as_notification_sound" />
+            style="@style/SettingsTheme.TextView.Subhead.Colored"
+            android:text="@string/as_new_assign_subhead" />
+
+        <RelativeLayout
+            android:id="@+id/as_new_review_overlay"
+            style="@style/SettingsTheme.ClickableOverlay">
+
+            <TextView
+                android:id="@+id/as_new_review_primary_line"
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_new_assign_title" />
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:layout_below="@id/as_new_review_primary_line"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_new_assign_details" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/as_new_review_switch"
+                style="@style/SettingsTheme.ListItem.Switch" />
+
+        </RelativeLayout>
+
+        <View style="@style/AppTheme.Separator.Horizontal" />
+
+
+        <LinearLayout
+            android:id="@+id/as_new_review_sound_overlay"
+            style="@style/SettingsTheme.ClickableOverlay"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:text="@string/as_notification_sound_new_assignment" />
+
+            <TextView
+                android:id="@+id/as_new_review_sound_name"
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:text="@string/select_notification_sound" />
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/AppTheme.Separator.Horizontal"
+            android:layout_marginBottom="@dimen/padding_small" />
+
 
         <TextView
-            android:id="@+id/as_notification_sound_name"
-            style="@style/SettingsTheme.ListItem.SecondaryLine"
-            android:text="@string/as_notification_sound" />
+            style="@style/SettingsTheme.TextView.Subhead.Colored"
+            android:text="@string/as_price_changes_subhead" />
+
+        <RelativeLayout
+            android:id="@+id/as_price_changes_overlay"
+            style="@style/SettingsTheme.ClickableOverlay">
+
+            <TextView
+                android:id="@+id/as_price_changes_primary_line"
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_price_changes_title" />
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:layout_below="@id/as_price_changes_primary_line"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_price_changes_details" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/as_price_changes_switch"
+                style="@style/SettingsTheme.ListItem.Switch" />
+
+        </RelativeLayout>
+
+        <View style="@style/AppTheme.Separator.Horizontal" />
+
+        <LinearLayout
+            android:id="@+id/as_price_changes_sound_overlay"
+            style="@style/SettingsTheme.ClickableOverlay"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:text="@string/as_notification_sound_price_changes" />
+
+            <TextView
+                android:id="@+id/as_price_changes_sound_name"
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:text="@string/select_notification_sound" />
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/AppTheme.Separator.Horizontal"
+            android:layout_marginBottom="@dimen/padding_small" />
+
+
+        <TextView
+            style="@style/SettingsTheme.TextView.Subhead.Colored"
+            android:text="@string/as_incorrect_request_subhead" />
+
+        <RelativeLayout
+            android:id="@+id/as_incorrect_request_overlay"
+            style="@style/SettingsTheme.ClickableOverlay">
+
+            <TextView
+                android:id="@+id/as_incorrect_request_primary_line"
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_request_inconsistency_title" />
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:layout_below="@id/as_incorrect_request_primary_line"
+                android:layout_marginEnd="@dimen/list_item_inset"
+                android:text="@string/as_notify_request_inconsistency_details" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/as_incorrect_request_switch"
+                style="@style/SettingsTheme.ListItem.Switch" />
+
+        </RelativeLayout>
+
+        <View style="@style/AppTheme.Separator.Horizontal" />
+
+        <LinearLayout
+            android:id="@+id/as_incorrect_request_sound_overlay"
+            style="@style/SettingsTheme.ClickableOverlay"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SettingsTheme.ListItem.PrimaryLine"
+                android:text="@string/as_notification_sound_request_inconsistency" />
+
+            <TextView
+                android:id="@+id/as_incorrect_request_sound_name"
+                style="@style/SettingsTheme.ListItem.SecondaryLine"
+                android:text="@string/select_notification_sound" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

@@ -25,25 +25,15 @@ class PreferenceStorage private constructor(context: Context) {
             return INSTANCE
         }
 
-        private val NOTIFICATION_SOUND = "notification sound"
         private val NOTIFY_NEW_ASSIGNMENT = "notify new assignment"
+        private val NOTIFICATION_SOUND_NEW_ASSIGNMENT = "notification sound new assignment"
         private val NOTIFY_REQUEST_INCORRECT = "notify request incorrect"
+        private val NOTIFICATION_SOUND_REQUEST_INCORRECT = "notification request incorrect"
         private val NOTIFY_PRICE_CHANGES = "notify price changes"
+        private val NOTIFICATION_SOUND_PRICE_CHANGES = "notification sound price changes"
+        private val REQUEST_INTERVAL = "interval"
         private val TOKEN = "token"
     }
-
-
-    @SuppressLint("ApplySharedPref")
-    fun saveNotificationSound(notificationSound: Uri) {
-        sharedPreferences.edit().putString(NOTIFICATION_SOUND, notificationSound.toString()).commit()
-    }
-
-    val notificationSound: Uri
-        get() {
-            val defaultSystemNotification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString()
-            val uri = sharedPreferences.getString(NOTIFICATION_SOUND, defaultSystemNotification)
-            return Uri.parse(uri)
-        }
 
     var isNotifyNewAssignment: Boolean
         get() {
@@ -52,6 +42,17 @@ class PreferenceStorage private constructor(context: Context) {
         @SuppressLint("ApplySharedPref")
         set(value) {
             sharedPreferences.edit().putBoolean(NOTIFY_NEW_ASSIGNMENT, value).commit()
+        }
+
+    var newAssignmentSound: Uri
+        get() {
+            val defaultSystemNotification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString()
+            val uri = sharedPreferences.getString(NOTIFICATION_SOUND_NEW_ASSIGNMENT, defaultSystemNotification)
+            return Uri.parse(uri)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putString(NOTIFICATION_SOUND_NEW_ASSIGNMENT, value.toString()).commit()
         }
 
     var isNotifyIncorrectRequest: Boolean
@@ -63,6 +64,17 @@ class PreferenceStorage private constructor(context: Context) {
             sharedPreferences.edit().putBoolean(NOTIFY_REQUEST_INCORRECT, value).commit()
         }
 
+    var requestIncorrectSound: Uri
+        get() {
+            val defaultSystemNotification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString()
+            val uri = sharedPreferences.getString(NOTIFICATION_SOUND_REQUEST_INCORRECT, defaultSystemNotification)
+            return Uri.parse(uri)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putString(NOTIFICATION_SOUND_REQUEST_INCORRECT, value.toString()).commit()
+        }
+
     var isNotifyPriceChanges: Boolean
         get() {
             return sharedPreferences.getBoolean(NOTIFY_PRICE_CHANGES, true)
@@ -72,6 +84,17 @@ class PreferenceStorage private constructor(context: Context) {
             sharedPreferences.edit().putBoolean(NOTIFY_PRICE_CHANGES, value).commit()
         }
 
+    var priceChangesSound: Uri
+        get() {
+            val defaultSystemNotification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString()
+            val uri = sharedPreferences.getString(NOTIFICATION_SOUND_PRICE_CHANGES, defaultSystemNotification)
+            return Uri.parse(uri)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putString(NOTIFICATION_SOUND_PRICE_CHANGES, value.toString()).commit()
+        }
+
     var token: String?
         get() {
             return sharedPreferences.getString(TOKEN, null)
@@ -79,6 +102,15 @@ class PreferenceStorage private constructor(context: Context) {
         @SuppressLint("ApplySharedPref")
         set(value) {
             sharedPreferences.edit().putString(TOKEN, value).commit()
+        }
+
+    var requestInterval: Long
+        get() {
+            return sharedPreferences.getLong(REQUEST_INTERVAL, 60000)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putLong(REQUEST_INTERVAL, value).commit()
         }
 
 }

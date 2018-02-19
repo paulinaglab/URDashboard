@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="simple_menu_item_height">48dp</dimen>
+    <dimen name="simple_menu_dropdown_width">288dp</dimen>
+    <dimen name="simple_menu_padding">8dp</dimen>
+</resources>

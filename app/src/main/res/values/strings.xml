@@ -40,15 +40,24 @@
 
     <!-- Settings -->
     <string name="settings_activity_title">Settings</string>
-    <string name="as_sounds_label">Sounds</string>
-    <string name="as_notification_sound">Notification Sound</string>
-    <string name="as_notifications_label">Notifications</string>
+
+    <string name="as_interval_label">Update frequency</string>
+    <string name="as_interval_default_text">Select interval value</string>
+
+    <string name="as_new_assign_subhead">New Assignments</string>
     <string name="as_notify_new_assign_title">Notify about new assignments</string>
     <string name="as_notify_new_assign_details">Get the info when the new review is coming</string>
+    <string name="as_notification_sound_new_assignment">New assignment notification sound</string>
+
+    <string name="as_incorrect_request_subhead">Request Issues</string>
     <string name="as_notify_request_inconsistency_title">Notify about request inconsistency</string>
     <string name="as_notify_request_inconsistency_details">Get the info when submission request seem incorrect</string>
+    <string name="as_notification_sound_request_inconsistency">Request issue notification sound</string>
+
+    <string name="as_price_changes_subhead">Price Changing</string>
     <string name="as_notify_price_changes_title">Notify about price changes</string>
     <string name="as_notify_price_changes_details">Get the info when the reward for project drops or rises</string>
+    <string name="as_notification_sound_price_changes">Price change notification sound</string>
 
     <string name="select_notification_sound">Select sound</string>
 
