@@ -195,9 +195,11 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
     }
 
     override fun showTokenDialog(cancelable: Boolean) {
-        val dialog = UpdateTokenDialog.newInstance(cancelable)
-        dialog.isCancelable = cancelable
-        dialog.show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
+        if (fragmentManager.findFragmentByTag(UPDATE_TOKEN_DIALOG_TAG) == null) {
+            val dialog = UpdateTokenDialog.newInstance(cancelable)
+            dialog.isCancelable = cancelable
+            dialog.show(supportFragmentManager, UPDATE_TOKEN_DIALOG_TAG)
+        }
     }
 
     fun getProjectColor(projectId: Long): Int? {

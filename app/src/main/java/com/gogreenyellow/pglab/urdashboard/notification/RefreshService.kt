@@ -1,11 +1,15 @@
 package com.gogreenyellow.pglab.urdashboard.notification
 
+import android.annotation.SuppressLint
+import android.app.IntentService
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.text.TextUtils
 import android.util.Log
@@ -46,9 +50,17 @@ class RefreshService : JobService() {
 
         AssignedSubmissionsRepository.getAssignedSubmissions(token,
                 object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
+                    @SuppressLint("NewApi")
                     override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
                         if (containNew) {
                             val channelId = "submission_assigned"
+                            val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                val channel = NotificationChannel(channelId, "Channel name", NotificationManager.IMPORTANCE_HIGH)
+                                notificationMgr.createNotificationChannel(channel)
+                            }
+
                             val builder = NotificationCompat.Builder(this@RefreshService, channelId)
                                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                                     .setContentTitle(getString(R.string.app_name))
@@ -61,7 +73,6 @@ class RefreshService : JobService() {
                                     0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                             builder.setContentIntent(pendingIntent)
 
-                            val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                             notificationMgr.notify(ASSIGNED_REVIEWS_NOTIFICATION_ID, builder.build())
                         }
                         jobFinished(params, false)
