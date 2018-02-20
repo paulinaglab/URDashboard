@@ -1,5 +1,7 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.job.JobInfo
@@ -224,10 +226,18 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         scheduler.schedule(jobInfo.build())
     }
 
+    @SuppressLint("NewApi")
     fun displayNotification(smallIconResId: Int,
                             contentTitleResId: Int,
                             contentTextResId: Int) {
         val channelId = "submission_assigned"
+        val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "Channel name", NotificationManager.IMPORTANCE_HIGH)
+            notificationMgr.createNotificationChannel(channel)
+        }
+
         val builder = NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(smallIconResId)
                 .setContentTitle(getString(contentTitleResId))
@@ -240,7 +250,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
                 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         builder.setContentIntent(pendingIntent)
 
-        val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationMgr.notify(RefreshService.ASSIGNED_REVIEWS_NOTIFICATION_ID, builder.build())
     }
 }
