@@ -1,8 +1,13 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -14,6 +19,7 @@ import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
 import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
+import com.gogreenyellow.pglab.urdashboard.notification.RefreshService
 import com.gogreenyellow.pglab.urdashboard.settings.SettingsActivity
 import com.gogreenyellow.pglab.urdashboard.util.DateUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +39,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
     override lateinit var presenter: MainContract.Presenter
 
     companion object {
+        const val REFRESH_JOB_ID = 100
         const val UDACITY_DASHBOARD_URL = "https://mentor-dashboard.udacity.com/reviews/overview"
         const val UPDATE_TOKEN_DIALOG_TAG = "update_token_dialog"
         val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd HH:mm")
@@ -50,6 +57,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         })
 
         st_update_button.setOnClickListener { showTokenDialog(true) }
+        scheduleJobs()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -188,5 +196,22 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
     fun getToken(): String? {
         return PreferenceStorage.getInstance(this)?.token
+    }
+
+    fun scheduleJobs() {
+        val scheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+
+        val componentName = ComponentName(this, RefreshService::class.java)
+        val jobInfo = JobInfo.Builder(REFRESH_JOB_ID, componentName)
+        jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPeriodic(PreferenceStorage.getInstance(this)!!.requestInterval)
+                .setPersisted(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            jobInfo.setRequiresBatteryNotLow(false)
+                    .setRequiresStorageNotLow(false)
+        }
+
+        scheduler.schedule(jobInfo.build())
     }
 }

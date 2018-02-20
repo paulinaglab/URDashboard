@@ -18,7 +18,7 @@ interface MainContract {
     interface View : BaseView<Presenter> {
         fun displaySubmissionRequests(submissionRequests: List<SubmissionRequest>)
         fun displayAssignedSubmissions(assignedSubmissions: List<AssignedSubmission>)
-        fun displayProjectsQueuedFor(queuedFor: List<QueuedProject>)
+        fun displayProjectsQueuedFor(queuedProjects: List<QueuedProject>)
         fun hideRefreshing()
         fun displayTokenData(expiresIn: Long, expirationDate: String)
         fun showTokenDialog(cancelable: Boolean)

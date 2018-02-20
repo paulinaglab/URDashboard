@@ -65,4 +65,7 @@
     <!-- Commons -->
     <string name="price_text">$%.2f</string>
 
+    <!-- Notifications -->
+    <string name="n_new_reviews">You have new submission(s) to review</string>
+
 </resources>
