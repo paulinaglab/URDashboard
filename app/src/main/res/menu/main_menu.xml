@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/mm_open_udacity_website"
@@ -12,5 +12,15 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:id="@+id/mm_settings"
         android:title="@string/action_open_settings" />
 
+    <item
+        android:id="@+id/mm_notification1"
+        android:title="Notification1" />
+    <item
+        android:id="@+id/mm_notification2"
+        android:title="Notification2" />
+
+    <item
+        android:id="@+id/mm_notification3"
+        android:title="Notification3" />
 
 </menu>

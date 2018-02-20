@@ -1,5 +1,7 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
@@ -9,6 +11,7 @@ import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -80,6 +83,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
+            R.id.mm_notification1 -> displayNotification(R.drawable.ic_launcher_foreground,
+                    R.string.app_name, R.string.n_new_reviews)
+            R.id.mm_notification2 -> displayNotification(R.drawable.ic_launcher_foreground,
+                    R.string.app_name, R.string.n_new_reviews)
+            R.id.mm_notification3 -> displayNotification(R.drawable.ic_launcher_foreground,
+                    R.string.app_name, R.string.n_new_reviews)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -213,5 +222,25 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         }
 
         scheduler.schedule(jobInfo.build())
+    }
+
+    fun displayNotification(smallIconResId: Int,
+                            contentTitleResId: Int,
+                            contentTextResId: Int) {
+        val channelId = "submission_assigned"
+        val builder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(smallIconResId)
+                .setContentTitle(getString(contentTitleResId))
+                .setContentText(getString(contentTextResId))
+                .setSound(PreferenceStorage.getInstance(this)!!.newAssignmentSound)
+                .setAutoCancel(true)
+
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        builder.setContentIntent(pendingIntent)
+
+        val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationMgr.notify(RefreshService.ASSIGNED_REVIEWS_NOTIFICATION_ID, builder.build())
     }
 }
