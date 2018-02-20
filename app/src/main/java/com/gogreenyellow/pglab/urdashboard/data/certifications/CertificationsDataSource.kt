@@ -10,8 +10,10 @@ interface CertificationsDataSource {
 
     fun saveCertifications(certifications: List<Certification>, callback: SaveCertificationsCallback)
 
+    fun getCertifications(): List<Certification>
+
     interface CertificationsCallback {
-        fun gotCertifications(certifications: List<Certification>)
+        fun gotCertifications(certifications: List<Certification>, changes: Boolean)
         fun failedToGetCertifications(errorCode: Int)
     }
 

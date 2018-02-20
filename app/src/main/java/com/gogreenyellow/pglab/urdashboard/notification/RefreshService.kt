@@ -1,86 +1,93 @@
 package com.gogreenyellow.pglab.urdashboard.notification
 
 import android.annotation.SuppressLint
-import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.job.JobInfo
 import android.app.job.JobParameters
+import android.app.job.JobScheduler
 import android.app.job.JobService
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.text.TextUtils
-import android.util.Log
-import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
-import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
-import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsRepository
 import com.gogreenyellow.pglab.urdashboard.main.MainActivity
-import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
-import com.gogreenyellow.pglab.urdashboard.util.TokenUtil
 
 /**
- * Created by Paulina on 2018-02-19.
+ * Created by Paulina on 2018-02-20.
  */
-class RefreshService : JobService() {
-
+abstract class RefreshService : JobService() {
 
     companion object {
-        const val ASSIGNED_REVIEWS_NOTIFICATION_ID = 1
+        fun schedule(context: Context, jobId: Int, serviceClass: Class<*>) {
+            val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+
+            val componentName = ComponentName(context, serviceClass)
+            val jobInfo = JobInfo.Builder(jobId, componentName)
+            jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPeriodic(PreferenceStorage.getInstance(context)!!.requestInterval)
+                    .setPersisted(true)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                jobInfo.setRequiresBatteryNotLow(false)
+                        .setRequiresStorageNotLow(false)
+            }
+
+            scheduler.schedule(jobInfo.build())
+        }
+
+        fun cancel(context: Context, jobId: Int) {
+            val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+            scheduler.cancel(jobId)
+        }
     }
+
+    /*
+
+            R.id.mm_notification2 -> displayNotification(
+                    ,
+                    ,
+                    )
+            R.id.mm_notification3 -> displayNotification(
+                    R.drawable.ic_notif_error,
+                    R.string.n_incorrect_request_title,
+                    R.string.n_incorrect_request_text)
+     */
 
     override fun onStopJob(params: JobParameters?): Boolean {
-        Log.d(RefreshService::class.java.simpleName, "onStopJobCalled")
         return true
     }
 
-    override fun onStartJob(params: JobParameters?): Boolean {
-        Log.d(RefreshService::class.java.simpleName, "onStartJobCalled")
-        checkAssignedSubmissions(params)
-        return true
-    }
+    @SuppressLint("NewApi")
+    fun displayNotification(notificationId: Int,
+                            smallIconResId: Int,
+                            contentTitleResId: Int,
+                            contentTextResId: Int,
+                            sound: Uri) {
+        val channelId = "submission_assigned"
+        val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    private fun checkAssignedSubmissions(params: JobParameters?) {
-        val token = PreferenceStorage.getInstance(this)?.token ?: return
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "Channel name", NotificationManager.IMPORTANCE_HIGH)
+            notificationMgr.createNotificationChannel(channel)
+        }
 
-        if (TextUtils.isEmpty(token) || TokenUtil.getTokenExpiresIn(token) <= 0)
-            return
+        val builder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(smallIconResId)
+                .setContentTitle(getString(contentTitleResId))
+                .setContentText(getString(contentTextResId))
+                .setSound(sound)
+                .setAutoCancel(true)
 
-        AssignedSubmissionsRepository.getAssignedSubmissions(token,
-                object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
-                    @SuppressLint("NewApi")
-                    override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
-                        if (containNew) {
-                            val channelId = "submission_assigned"
-                            val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this,
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        builder.setContentIntent(pendingIntent)
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                val channel = NotificationChannel(channelId, "Channel name", NotificationManager.IMPORTANCE_HIGH)
-                                notificationMgr.createNotificationChannel(channel)
-                            }
-
-                            val builder = NotificationCompat.Builder(this@RefreshService, channelId)
-                                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                                    .setContentTitle(getString(R.string.app_name))
-                                    .setContentText(getString(R.string.n_new_reviews_text))
-                                    .setSound(PreferenceStorage.getInstance(this@RefreshService)!!.newAssignmentSound)
-                                    .setAutoCancel(true)
-
-                            val intent = Intent(this@RefreshService, MainActivity::class.java)
-                            val pendingIntent = PendingIntent.getActivity(this@RefreshService,
-                                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-                            builder.setContentIntent(pendingIntent)
-
-                            notificationMgr.notify(ASSIGNED_REVIEWS_NOTIFICATION_ID, builder.build())
-                        }
-                        jobFinished(params, false)
-                    }
-
-                    override fun failedToGetAssignedSubmissions(code: Int) {
-                        jobFinished(params, false)
-                    }
-                })
+        notificationMgr.notify(notificationId, builder.build())
     }
 }

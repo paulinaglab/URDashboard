@@ -1,19 +1,10 @@
 package com.gogreenyellow.pglab.urdashboard.main
 
-import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
-import android.content.Context
+
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -24,9 +15,9 @@ import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
 import com.gogreenyellow.pglab.urdashboard.model.QueuedProject
 import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
-import com.gogreenyellow.pglab.urdashboard.notification.RefreshService
 import com.gogreenyellow.pglab.urdashboard.settings.SettingsActivity
 import com.gogreenyellow.pglab.urdashboard.util.DateUtil
+import com.gogreenyellow.pglab.urdashboard.util.JobPlanner
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.sheet_request_json.*
 import kotlinx.android.synthetic.main.sheet_request_settings.*
@@ -62,7 +53,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
         })
 
         st_update_button.setOnClickListener { showTokenDialog(true) }
-        scheduleJobs()
+        JobPlanner.scheduleJobs(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -85,18 +76,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.mm_notification1 -> displayNotification(
-                    R.drawable.ic_notif_default,
-                    R.string.n_new_reviews_title,
-                    R.string.n_new_reviews_text)
-            R.id.mm_notification2 -> displayNotification(
-                    R.drawable.ic_notif_price,
-                    R.string.n_price_changes_title,
-                    R.string.n_price_changes_text)
-            R.id.mm_notification3 -> displayNotification(
-                    R.drawable.ic_notif_error,
-                    R.string.n_incorrect_request_title,
-                    R.string.n_incorrect_request_text)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -215,49 +194,5 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
     fun getToken(): String? {
         return PreferenceStorage.getInstance(this)?.token
-    }
-
-    fun scheduleJobs() {
-        val scheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-
-        val componentName = ComponentName(this, RefreshService::class.java)
-        val jobInfo = JobInfo.Builder(REFRESH_JOB_ID, componentName)
-        jobInfo.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPeriodic(PreferenceStorage.getInstance(this)!!.requestInterval)
-                .setPersisted(true)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            jobInfo.setRequiresBatteryNotLow(false)
-                    .setRequiresStorageNotLow(false)
-        }
-
-        scheduler.schedule(jobInfo.build())
-    }
-
-    @SuppressLint("NewApi")
-    fun displayNotification(smallIconResId: Int,
-                            contentTitleResId: Int,
-                            contentTextResId: Int) {
-        val channelId = "submission_assigned"
-        val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Channel name", NotificationManager.IMPORTANCE_HIGH)
-            notificationMgr.createNotificationChannel(channel)
-        }
-
-        val builder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(smallIconResId)
-                .setContentTitle(getString(contentTitleResId))
-                .setContentText(getString(contentTextResId))
-                .setSound(PreferenceStorage.getInstance(this)!!.newAssignmentSound)
-                .setAutoCancel(true)
-
-        val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        builder.setContentIntent(pendingIntent)
-
-        notificationMgr.notify(RefreshService.ASSIGNED_REVIEWS_NOTIFICATION_ID, builder.build())
     }
 }

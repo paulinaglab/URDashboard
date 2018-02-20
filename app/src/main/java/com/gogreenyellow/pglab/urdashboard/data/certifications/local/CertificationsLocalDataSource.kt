@@ -15,7 +15,7 @@ object CertificationsLocalDataSource : CertificationsDataSource {
                                    forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
         //TODO: asynchronously
-        callback.gotCertifications(certificationsDao.getAllCertifications())
+        callback.gotCertifications(certificationsDao.getAllCertifications(), false)
     }
 
     override fun saveCertifications(certifications: List<Certification>,
@@ -25,5 +25,9 @@ object CertificationsLocalDataSource : CertificationsDataSource {
         for (certification in certifications) {
             certificationsDao.insertCertification(certification)
         }
+    }
+
+    override fun getCertifications(): List<Certification> {
+        return certificationsDao.getAllCertifications()
     }
 }

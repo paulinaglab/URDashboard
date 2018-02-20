@@ -13,17 +13,26 @@ object CertificationsRepository : CertificationsDataSource {
                                    forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
         if (forceRefresh) {
-            CertificationsRemoteDataSource.getCertifications(token, false,
+            CertificationsRemoteDataSource.getCertifications(token, true,
                     object : CertificationsDataSource.CertificationsCallback {
-                        override fun gotCertifications(certifications: List<Certification>) {
+                        override fun gotCertifications(certifications: List<Certification>, changes: Boolean) {
+                            val localCerts = CertificationsLocalDataSource.getCertifications()
+                            var newPrice = false;
+
+                            for (localCert in localCerts) {
+                                certifications
+                                        .filter { localCert.projectId == it.projectId && localCert.projectPrice != it.projectPrice }
+                                        .forEach { newPrice = true }
+                            }
+
                             CertificationsLocalDataSource.saveCertifications(certifications,
                                     object : CertificationsDataSource.SaveCertificationsCallback {
                                         override fun certificationsSaved() {
-                                            callback.gotCertifications(certifications)
+                                            callback.gotCertifications(certifications, newPrice)
                                         }
 
                                         override fun failedToSaveCertifications(errorCode: Int) {
-                                            callback.gotCertifications(certifications)
+                                            callback.gotCertifications(certifications, newPrice)
                                         }
                                     })
                         }
@@ -36,11 +45,11 @@ object CertificationsRepository : CertificationsDataSource {
         } else {
             CertificationsLocalDataSource.getCertifications(token, false,
                     object : CertificationsDataSource.CertificationsCallback {
-                        override fun gotCertifications(certifications: List<Certification>) {
+                        override fun gotCertifications(certifications: List<Certification>, changes: Boolean) {
                             if (certifications.isEmpty()) {
                                 getCertifications(token, true, callback)
                             } else {
-                                callback.gotCertifications(certifications)
+                                callback.gotCertifications(certifications, changes)
                             }
                         }
 
@@ -53,5 +62,9 @@ object CertificationsRepository : CertificationsDataSource {
 
     override fun saveCertifications(certifications: List<Certification>, callback: CertificationsDataSource.SaveCertificationsCallback) {
         CertificationsLocalDataSource.saveCertifications(certifications, callback)
+    }
+
+    override fun getCertifications(): List<Certification> {
+        throw RuntimeException("not supported")
     }
 }

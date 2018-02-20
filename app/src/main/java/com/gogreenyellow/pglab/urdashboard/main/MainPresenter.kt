@@ -30,7 +30,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         var runningRefresh = 2
         SubmissionRequestsRepository.getActiveSubmissionRequests(token, object : SubmissionRequestsDataSource.SubmissionRequestsCallback {
             override fun gotSubmissionsRequests(response: ArrayList<SubmissionRequest>) {
-                getCertifications(token, response)
+                getCertifications(token, response, false)
                 view.displaySubmissionRequests(response)
                 runningRefresh--
                 if (runningRefresh == 0)
@@ -63,10 +63,10 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                 TokenUtil.getTokenExpirationDate(token))
     }
 
-    private fun getCertifications(token: String, submissionRequests: List<SubmissionRequest>) {
-        CertificationsRepository.getCertifications(token, false,
+    private fun getCertifications(token: String, submissionRequests: List<SubmissionRequest>, force: Boolean) {
+        CertificationsRepository.getCertifications(token, force,
                 object : CertificationsDataSource.CertificationsCallback {
-                    override fun gotCertifications(certifications: List<Certification>) {
+                    override fun gotCertifications(certifications: List<Certification>, changes: Boolean) {
                         val list = ArrayList<QueuedProject>()
                         certifications
                                 .filter { it.active && it.status.equals("certified", true) }

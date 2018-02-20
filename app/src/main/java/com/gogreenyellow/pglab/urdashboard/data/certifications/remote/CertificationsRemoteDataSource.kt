@@ -11,6 +11,7 @@ import com.gogreenyellow.pglab.urdashboard.model.Certification
  */
 object CertificationsRemoteDataSource : CertificationsDataSource {
 
+
     override fun getCertifications(token: String,
                                    forceRefresh: Boolean,
                                    callback: CertificationsDataSource.CertificationsCallback) {
@@ -29,7 +30,7 @@ object CertificationsRemoteDataSource : CertificationsDataSource {
 
                         response.add(Certification(projectId, status, active, projectName, projectPrice.toFloat()))
                     }
-                    callback.gotCertifications(response)
+                    callback.gotCertifications(response, false)
                 },
                 Response.ErrorListener {
                     //TODO: handle the errors
@@ -39,5 +40,10 @@ object CertificationsRemoteDataSource : CertificationsDataSource {
     }
 
     override fun saveCertifications(certifications: List<Certification>, callback: CertificationsDataSource.SaveCertificationsCallback) {
+        throw RuntimeException("not supported by remote repo")
+    }
+
+    override fun getCertifications(): List<Certification> {
+        throw RuntimeException("not supported by remote repo")
     }
 }

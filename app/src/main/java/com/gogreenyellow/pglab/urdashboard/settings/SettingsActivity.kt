@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.ui.SimpleMenu
+import com.gogreenyellow.pglab.urdashboard.util.JobPlanner
 import kotlinx.android.synthetic.main.activity_settings.*
 
 /**
@@ -171,17 +172,20 @@ class SettingsActivity : AppCompatActivity() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyNewAssignment = !(psInstance?.isNotifyNewAssignment!!)
         initNewAssignmentSettingState()
+        JobPlanner.scheduleJobs(this)
     }
 
     fun toggleNotificationRequestIncorrect() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyIncorrectRequest = !(psInstance?.isNotifyIncorrectRequest!!)
         initIncorrectRequestSettingState()
+        JobPlanner.scheduleJobs(this)
     }
 
     fun toggleNotificationPriceChanges() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyPriceChanges = !(psInstance?.isNotifyPriceChanges!!)
         initPriceChangesSettingState()
+        JobPlanner.scheduleJobs(this)
     }
 }

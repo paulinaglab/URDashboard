@@ -12,15 +12,4 @@
         android:id="@+id/mm_settings"
         android:title="@string/action_open_settings" />
 
-    <item
-        android:id="@+id/mm_notification1"
-        android:title="Notification1" />
-    <item
-        android:id="@+id/mm_notification2"
-        android:title="Notification2" />
-
-    <item
-        android:id="@+id/mm_notification3"
-        android:title="Notification3" />
-
 </menu>
