@@ -1,6 +1,5 @@
 package com.gogreenyellow.pglab.urdashboard.notification
 
-import android.app.IntentService
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.job.JobParameters
@@ -53,7 +52,7 @@ class RefreshService : JobService() {
                             val builder = NotificationCompat.Builder(this@RefreshService, channelId)
                                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                                     .setContentTitle(getString(R.string.app_name))
-                                    .setContentText(getString(R.string.n_new_reviews))
+                                    .setContentText(getString(R.string.n_new_reviews_text))
                                     .setSound(PreferenceStorage.getInstance(this@RefreshService)!!.newAssignmentSound)
                                     .setAutoCancel(true)
 

@@ -55,26 +55,11 @@
         tools:text="2018-02-14 4:41" />
 
     <TextView
-        android:id="@+id/ri_close_label"
-        style="@style/AppTheme.TextView.JsonDetails.Label"
-        android:text="@string/srj_close_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ri_created_label" />
-
-    <TextView
-        android:id="@+id/ri_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/ri_close_label"
-        app:layout_constraintTop_toTopOf="@id/ri_close_label"
-        tools:text="2018-02-15 18:00" />
-
-    <TextView
         android:id="@+id/ri_updated_label"
         style="@style/AppTheme.TextView.JsonDetails.Label"
         android:text="@string/srj_updated_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ri_close_label" />
+        app:layout_constraintTop_toBottomOf="@+id/ri_created_label" />
 
     <TextView
         android:id="@+id/ri_updated"
@@ -84,7 +69,22 @@
         app:layout_constraintTop_toTopOf="@id/ri_updated_label"
         tools:text="2018-02-15 6:00" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/ri_close_label"
+        style="@style/AppTheme.TextView.JsonDetails.Label"
+        android:text="@string/srj_close_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ri_updated_label" />
+
+    <TextView
+        android:id="@+id/ri_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ri_close_label"
+        app:layout_constraintTop_toTopOf="@id/ri_close_label"
+        tools:text="2018-02-15 18:00" />
+
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/ri_projects_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,8 +92,6 @@
         android:paddingBottom="@dimen/padding_normal"
         android:paddingStart="32dp"
         android:paddingTop="@dimen/padding_normal"
-        app:layout_constraintTop_toBottomOf="@id/ri_updated_label">
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/ri_close_label" />
 
 </android.support.constraint.ConstraintLayout>

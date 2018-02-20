@@ -66,6 +66,11 @@
     <string name="price_text">$%.2f</string>
 
     <!-- Notifications -->
-    <string name="n_new_reviews">You have new submission(s) to review</string>
+    <string name="n_new_reviews_title">New assignment!</string>
+    <string name="n_new_reviews_text">You have new submission(s) to review</string>
+    <string name="n_price_changes_title">Price changed</string>
+    <string name="n_price_changes_text">There are new compensations for reviews</string>
+    <string name="n_incorrect_request_title">Inconsistent request</string>
+    <string name="n_incorrect_request_text">The submission requests may be incorrect</string>
 
 </resources>

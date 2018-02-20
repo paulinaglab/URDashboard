@@ -85,12 +85,18 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.mm_notification1 -> displayNotification(R.drawable.ic_launcher_foreground,
-                    R.string.app_name, R.string.n_new_reviews)
-            R.id.mm_notification2 -> displayNotification(R.drawable.ic_launcher_foreground,
-                    R.string.app_name, R.string.n_new_reviews)
-            R.id.mm_notification3 -> displayNotification(R.drawable.ic_launcher_foreground,
-                    R.string.app_name, R.string.n_new_reviews)
+            R.id.mm_notification1 -> displayNotification(
+                    R.drawable.ic_notif_default,
+                    R.string.n_new_reviews_title,
+                    R.string.n_new_reviews_text)
+            R.id.mm_notification2 -> displayNotification(
+                    R.drawable.ic_notif_price,
+                    R.string.n_price_changes_title,
+                    R.string.n_price_changes_text)
+            R.id.mm_notification3 -> displayNotification(
+                    R.drawable.ic_notif_error,
+                    R.string.n_incorrect_request_title,
+                    R.string.n_incorrect_request_text)
         }
         return super.onOptionsItemSelected(item)
     }
