@@ -16,6 +16,7 @@ object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
                     val localSubmission = AssignedSubmissionsLocalDataSource.getAssignedSubmissionBySubmissionIdAndDate(submission.submissionId,
                             submission.assignedAt)
                     if (localSubmission == null) {
+                        AssignedSubmissionsLocalDataSource.saveAssignedSubmission(submission)
                         callback.gotAssignedSubmissions(assignedSubmission, true)
                         return
                     }
