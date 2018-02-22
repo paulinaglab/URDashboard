@@ -36,6 +36,10 @@
         <service
             android:name=".notification.RefreshPricesService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".notification.RefreshSubmissionRequestsService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

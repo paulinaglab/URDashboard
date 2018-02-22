@@ -46,18 +46,6 @@ abstract class RefreshService : JobService() {
         }
     }
 
-    /*
-
-            R.id.mm_notification2 -> displayNotification(
-                    ,
-                    ,
-                    )
-            R.id.mm_notification3 -> displayNotification(
-                    R.drawable.ic_notif_error,
-                    R.string.n_incorrect_request_title,
-                    R.string.n_incorrect_request_text)
-     */
-
     override fun onStopJob(params: JobParameters?): Boolean {
         return true
     }

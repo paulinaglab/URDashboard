@@ -8,8 +8,8 @@
     </string-array>
 
     <integer-array name="as_interval_millis">
-        <item>18000</item>
-        <item>60000</item>
+        <item>180000</item>
+        <item>600000</item>
         <item>1800000</item>
     </integer-array>
 

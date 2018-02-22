@@ -4,6 +4,7 @@ import android.content.Context
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.notification.RefreshAssignedReviewsService
 import com.gogreenyellow.pglab.urdashboard.notification.RefreshPricesService
+import com.gogreenyellow.pglab.urdashboard.notification.RefreshSubmissionRequestsService
 
 /**
  * Created by Paulina on 2018-02-20.
@@ -22,5 +23,10 @@ object JobPlanner {
             RefreshPricesService.schedule(context)
         else
             RefreshPricesService.cancel(context)
+
+        if (storage.isNotifyIncorrectRequest)
+            RefreshSubmissionRequestsService.schedule(context)
+        else
+            RefreshSubmissionRequestsService.cancel(context)
     }
 }

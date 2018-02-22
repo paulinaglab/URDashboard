@@ -25,6 +25,7 @@ object CertificationsLocalDataSource : CertificationsDataSource {
         for (certification in certifications) {
             certificationsDao.insertCertification(certification)
         }
+        callback.certificationsSaved()
     }
 
     override fun getCertifications(): List<Certification> {

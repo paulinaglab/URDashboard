@@ -8,6 +8,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.Build
 import android.text.TextUtils
+import android.util.Log
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.data.assignedsubmissions.AssignedSubmissionsDataSource
@@ -26,6 +27,7 @@ class RefreshAssignedReviewsService : RefreshService() {
     companion object {
         const val JOB_ID = 1
         const val NOTIFICATION_ID = 1
+        val LOG_TAG = RefreshAssignedReviewsService::class.java.simpleName
         fun schedule(context: Context) {
             RefreshService.schedule(context, JOB_ID, RefreshAssignedReviewsService::class.java)
         }
@@ -36,6 +38,7 @@ class RefreshAssignedReviewsService : RefreshService() {
     }
 
     override fun onStartJob(params: JobParameters?): Boolean {
+        Log.i(LOG_TAG, "Job started.")
         return checkAssignedSubmissions(params)
     }
 
@@ -49,7 +52,9 @@ class RefreshAssignedReviewsService : RefreshService() {
                 object : AssignedSubmissionsDataSource.AssignedSubmissionsCallback {
                     @SuppressLint("NewApi")
                     override fun gotAssignedSubmissions(assignedSubmission: List<AssignedSubmission>, containNew: Boolean) {
+                        Log.i(LOG_TAG, "Got assigned submissions")
                         if (containNew) {
+                            Log.i(LOG_TAG, "A new submission")
                             val sound = PreferenceStorage.getInstance(this@RefreshAssignedReviewsService)!!.newAssignmentSound
                             displayNotification(
                                     NOTIFICATION_ID,
@@ -58,10 +63,12 @@ class RefreshAssignedReviewsService : RefreshService() {
                                     R.string.n_new_reviews_text,
                                     sound)
                         }
+                        Log.i(LOG_TAG, "Job finished")
                         jobFinished(params, false)
                     }
 
                     override fun failedToGetAssignedSubmissions(code: Int) {
+                        Log.i(LOG_TAG, "Job failed")
                         jobFinished(params, false)
                     }
                 })

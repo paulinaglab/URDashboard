@@ -15,7 +15,7 @@ object AssignedSubmissionsRepository : AssignedSubmissionsDataSource {
                 for (submission in assignedSubmission) {
                     val localSubmission = AssignedSubmissionsLocalDataSource.getAssignedSubmissionBySubmissionIdAndDate(submission.submissionId,
                             submission.assignedAt)
-                    if (localSubmission != null) {
+                    if (localSubmission == null) {
                         callback.gotAssignedSubmissions(assignedSubmission, true)
                         return
                     }
