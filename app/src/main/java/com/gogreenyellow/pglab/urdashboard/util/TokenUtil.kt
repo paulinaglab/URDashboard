@@ -34,4 +34,15 @@ object TokenUtil {
         calendar.timeInMillis = jsonData.getLong("exp") * 1000
         return calendar
     }
+
+    fun isValid(token: String): Boolean {
+        try {
+            if (getTokenExpiresIn(token) <= 0)
+                return false
+        } catch (e: Exception) {
+            return false
+        }
+
+        return true
+    }
 }
