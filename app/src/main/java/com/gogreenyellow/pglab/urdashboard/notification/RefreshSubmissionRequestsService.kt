@@ -2,6 +2,7 @@ package com.gogreenyellow.pglab.urdashboard.notification
 
 import android.app.job.JobParameters
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import com.gogreenyellow.pglab.urdashboard.R
@@ -47,7 +48,8 @@ class RefreshSubmissionRequestsService : RefreshService() {
                             R.drawable.ic_notif_error,
                             R.string.n_incorrect_request_title,
                             R.string.n_incorrect_request_text,
-                            sound)
+                            sound,
+                            ContextCompat.getColor(this@RefreshSubmissionRequestsService, R.color.custom_blue))
                     Log.i(LOG_TAG, "Requests inconsistent")
                 }
                 Log.i(LOG_TAG, "Job finished")

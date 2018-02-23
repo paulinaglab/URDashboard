@@ -7,6 +7,7 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.os.Build
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import com.gogreenyellow.pglab.urdashboard.R
@@ -61,7 +62,8 @@ class RefreshAssignedReviewsService : RefreshService() {
                                     R.drawable.ic_notif_default,
                                     R.string.n_new_reviews_title,
                                     R.string.n_new_reviews_text,
-                                    sound)
+                                    sound,
+                                    ContextCompat.getColor(this@RefreshAssignedReviewsService, R.color.custom_purple))
                         }
                         Log.i(LOG_TAG, "Job finished")
                         jobFinished(params, false)

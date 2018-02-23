@@ -3,6 +3,7 @@ package com.gogreenyellow.pglab.urdashboard.notification
 import android.app.job.JobParameters
 import android.content.Context
 import android.net.Uri
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import com.gogreenyellow.pglab.urdashboard.R
@@ -52,7 +53,8 @@ class RefreshPricesService : RefreshService() {
                                     R.drawable.ic_notif_price,
                                     R.string.n_price_changes_title,
                                     R.string.n_price_changes_text,
-                                    sound)
+                                    sound,
+                                    ContextCompat.getColor(this@RefreshPricesService, R.color.custom_blue))
                             Log.i(LOG_TAG, "New price")
                         }
                         Log.i(LOG_TAG, "Job finished")

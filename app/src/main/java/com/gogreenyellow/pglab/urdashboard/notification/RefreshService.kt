@@ -55,7 +55,8 @@ abstract class RefreshService : JobService() {
                             smallIconResId: Int,
                             contentTitleResId: Int,
                             contentTextResId: Int,
-                            sound: Uri) {
+                            sound: Uri,
+                            color: Int) {
         val channelId = "submission_assigned"
         val notificationMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -70,6 +71,7 @@ abstract class RefreshService : JobService() {
                 .setContentText(getString(contentTextResId))
                 .setSound(sound)
                 .setAutoCancel(true)
+                .setColor(color)
 
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this,
