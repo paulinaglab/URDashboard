@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.gogreenyellow.pglab.urdashboard.R
@@ -87,16 +88,20 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             srs_queue_left_time.text = DateUtil.getTimeLeft(first.closedAt, this)
             srs_queue_end_time.text = DateUtil.getTime(first.closedAt)
             srs_queue_status_view.text = getString(R.string.srs_queue_on_label)
+
+            srs_queue_for_value_view.visibility = View.VISIBLE
+            srs_queue_for_value_label.visibility = View.VISIBLE
+            srs_json_sheet.visibility = View.VISIBLE
+
+            if (submissionRequests.size == 1)
+                srs_queue_for_value_view.text = getString(R.string.srs_queue_for_one_review_label)
+            else
+                srs_queue_for_value_view.text = getString(R.string.srs_queue_for_full_label)
         } else {
             srs_queue_status_view.text = getString(R.string.srs_queue_off_label)
-        }
-
-        if (submissionRequests.size == 1) {
-            srs_queue_for_value_view.text = getString(R.string.srs_queue_for_one_review_label)
-        } else if (submissionRequests.size > 1) {
-            srs_queue_for_value_view.text = getString(R.string.srs_queue_for_full_label)
-        } else {
-            srs_queue_for_value_view.text = "${getString(R.string.srs_queue_for_one_review_label)}/${getString(R.string.srs_queue_for_full_label)}"
+            srs_queue_for_value_view.visibility = View.GONE
+            srs_queue_for_value_label.visibility = View.GONE
+            srs_json_sheet.visibility = View.GONE
         }
 
         srj_requests_container.removeAllViews()

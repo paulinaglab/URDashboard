@@ -106,7 +106,7 @@ class PreferenceStorage private constructor(context: Context) {
 
     var requestInterval: Long
         get() {
-            return sharedPreferences.getLong(REQUEST_INTERVAL, 600000)
+            return sharedPreferences.getLong(REQUEST_INTERVAL, 900000)
         }
         @SuppressLint("ApplySharedPref")
         set(value) {

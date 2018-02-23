@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Rect
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -23,9 +24,9 @@ import kotlinx.android.synthetic.main.activity_settings.*
 class SettingsActivity : AppCompatActivity() {
 
     companion object {
-        val NEW_ASSIGNMENT_SOUND_REQUEST_CODE = 100
-        val INCORRECT_REQUEST_SOUND_REQUEST_CODE = 101
-        val PRICE_CHANGES_SOUND_REQUEST_CODE = 102
+        const val NEW_ASSIGNMENT_SOUND_REQUEST_CODE = 100
+        const val INCORRECT_REQUEST_SOUND_REQUEST_CODE = 101
+        const val PRICE_CHANGES_SOUND_REQUEST_CODE = 102
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +62,7 @@ class SettingsActivity : AppCompatActivity() {
         })
     }
 
-    fun initNewAssignmentSettingState() {
+    private fun initNewAssignmentSettingState() {
         val psInstance = PreferenceStorage.getInstance(this)
         as_new_review_switch.isChecked = psInstance!!.isNotifyNewAssignment
         initNotificationSoundName(
@@ -69,7 +70,7 @@ class SettingsActivity : AppCompatActivity() {
                 psInstance.newAssignmentSound)
     }
 
-    fun initIncorrectRequestSettingState() {
+    private fun initIncorrectRequestSettingState() {
         val psInstance = PreferenceStorage.getInstance(this)
         as_incorrect_request_switch.isChecked = psInstance!!.isNotifyIncorrectRequest
         initNotificationSoundName(
@@ -77,7 +78,7 @@ class SettingsActivity : AppCompatActivity() {
                 psInstance.requestIncorrectSound)
     }
 
-    fun initPriceChangesSettingState() {
+    private fun initPriceChangesSettingState() {
         val psInstance = PreferenceStorage.getInstance(this)
         as_price_changes_switch.isChecked = psInstance!!.isNotifyPriceChanges
         initNotificationSoundName(
@@ -85,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
                 psInstance.priceChangesSound)
     }
 
-    fun initNotificationSoundName(soundNameView: TextView, ringtoneUri: Uri?) {
+    private fun initNotificationSoundName(soundNameView: TextView, ringtoneUri: Uri?) {
         val ringtone = RingtoneManager.getRingtone(this, ringtoneUri)
         soundNameView.text = ringtone.getTitle(this)
     }
@@ -106,7 +107,7 @@ class SettingsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun openIntervalSimpleMenu() {
+    private fun openIntervalSimpleMenu() {
         val overlay = as_interval_overlay
         val loc = IntArray(2).apply { overlay.getLocationOnScreen(this) }
 
@@ -117,11 +118,18 @@ class SettingsActivity : AppCompatActivity() {
                 loc[1] + overlay.height)
 
 
-        val millisArray = resources.getIntArray(R.array.as_interval_millis)
+        var millisArray = resources.getIntArray(R.array.as_interval_millis)
+        var labelsArray = resources.getStringArray(R.array.as_interval_options_array)
         val currentValue = PreferenceStorage.getInstance(this)?.requestInterval
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            millisArray = millisArray.copyOfRange(1, millisArray.size)
+            labelsArray = labelsArray.copyOfRange(1, labelsArray.size)
+        }
+
         val simpleMenu = SimpleMenu(this,
-                resources.getStringArray(R.array.as_interval_options_array),
+                labelsArray,
                 millisArray.indexOf(currentValue?.toInt()!!))
 
         simpleMenu.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -133,7 +141,7 @@ class SettingsActivity : AppCompatActivity() {
         simpleMenu.show(overlay, anchorBounds)
     }
 
-    fun openNotificationSoundPicker(currentTone: Uri?, requestCode: Int) {
+    private fun openNotificationSoundPicker(currentTone: Uri?, requestCode: Int) {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
                 .putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
                 .putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.select_notification_sound))
@@ -168,21 +176,21 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    fun toggleNotificationNewAssignment() {
+    private fun toggleNotificationNewAssignment() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyNewAssignment = !(psInstance?.isNotifyNewAssignment!!)
         initNewAssignmentSettingState()
         JobPlanner.scheduleJobs(this)
     }
 
-    fun toggleNotificationRequestIncorrect() {
+    private fun toggleNotificationRequestIncorrect() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyIncorrectRequest = !(psInstance?.isNotifyIncorrectRequest!!)
         initIncorrectRequestSettingState()
         JobPlanner.scheduleJobs(this)
     }
 
-    fun toggleNotificationPriceChanges() {
+    private fun toggleNotificationPriceChanges() {
         val psInstance = PreferenceStorage.getInstance(this)
         psInstance?.isNotifyPriceChanges = !(psInstance?.isNotifyPriceChanges!!)
         initPriceChangesSettingState()

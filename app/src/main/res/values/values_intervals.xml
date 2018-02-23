@@ -3,13 +3,13 @@
 
     <string-array name="as_interval_options_array">
         <item>Send request every 3 minutes</item>
-        <item>Send request every 10 minutes</item>
+        <item>Send request every 15 minutes</item>
         <item>Send request every 30 minutes</item>
     </string-array>
 
     <integer-array name="as_interval_millis">
         <item>180000</item>
-        <item>600000</item>
+        <item>900000</item>
         <item>1800000</item>
     </integer-array>
 
