@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.model.AssignedSubmission
@@ -85,6 +86,17 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             val first = submissionRequests.get(0)
             srs_queue_left_time.text = DateUtil.getTimeLeft(first.closedAt, this)
             srs_queue_end_time.text = DateUtil.getTime(first.closedAt)
+            srs_queue_status_view.text = getString(R.string.srs_queue_on_label)
+        } else {
+            srs_queue_status_view.text = getString(R.string.srs_queue_off_label)
+        }
+
+        if (submissionRequests.size == 1) {
+            srs_queue_for_value_view.text = getString(R.string.srs_queue_for_one_review_label)
+        } else if (submissionRequests.size > 1) {
+            srs_queue_for_value_view.text = getString(R.string.srs_queue_for_full_label)
+        } else {
+            srs_queue_for_value_view.text = "${getString(R.string.srs_queue_for_one_review_label)}/${getString(R.string.srs_queue_for_full_label)}"
         }
 
         srj_requests_container.removeAllViews()
@@ -171,6 +183,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
 
     override fun tokenUpdateFailed(cancelable: Boolean) {
         showTokenDialog(cancelable)
+        Toast.makeText(this, R.string.dit_token_incorrect_or_expired, Toast.LENGTH_SHORT)
+                .show()
     }
 
     override fun showTokenDialog(cancelable: Boolean) {

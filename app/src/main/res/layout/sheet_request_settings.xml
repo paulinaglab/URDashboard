@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_normal"
-        android:text="@string/srs_queue_on_label"
+        android:text="---"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Display2"
         android:textColor="@color/theme_light_textColorPrimary" />
 
@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_normal"
             android:text="--:--"
-            tools:text="21:04"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-            android:textColor="@color/theme_light_textColorPrimary" />
+            android:textColor="@color/theme_light_textColorPrimary"
+            tools:text="21:04" />
 
         <TextView
             android:id="@+id/srs_queue_left_time"
@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_small"
             android:fontFamily="sans-serif-light"
-            tools:text="(- h - min)"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
             android:textColor="@color/theme_light_textColorTertiary"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:text="(- h - min)" />
 
     </LinearLayout>
 
@@ -69,10 +69,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_normal"
-        android:text="@string/srs_queue_for_full_label"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
         android:textColor="@color/theme_light_textColorPrimary"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:ellipsize="end"
+        tools:text="Keep mu queue full/One review" />
 
     <TextView
         android:id="@+id/srs_queue_for_value_label"
