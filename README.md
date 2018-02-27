@@ -1,7 +1,10 @@
 # UR Dashboard
 
 This is an Android application predicted to Udacity code reviewers.
-It's main purpose is to display and notify about the assigned submissions, project prices and submission request data.
+Its main purpose is to display and notify about the assigned submissions, project prices and submission request data.
+
+
+![Showcase](http://gogreenyellow.com/github/urdashboard/urdashboard_main.png)
 
 ## Getting started
 
@@ -18,7 +21,7 @@ Then open the **Application** tab and copy the value of `_jwt` in
 
 ![Instructions](http://gogreenyellow.com/github/urdashboard/application_api_key_instruction.png)
 
-For convenience you may paste it to a QR code generator of your choice, for example, 
+For convenience, you may paste it into a QR code generator of your choice or 
 [this one](http://www.gogreenyellow.com/tools/qrcode/qrcode-generator.html) and scan it with the app.
 
 
@@ -47,6 +50,6 @@ I fix the issue by updating my request: I remove one of the projects from submis
 
 Your data/token is never sent to any private server - it's stored on your device exclusively.
 
-The application only gets the data - it doesn't modify anything on dashboard.
+The application only gets the data - it doesn't modify anything on the dashboard.
 
 It is all based on an undocumented API, so you use it at your own risk.
