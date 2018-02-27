@@ -21,7 +21,11 @@ object CertificationsRepository : CertificationsDataSource {
 
                             for (localCert in localCerts) {
                                 certifications
-                                        .filter { localCert.projectId == it.projectId && localCert.projectPrice != it.projectPrice }
+                                        .filter {
+                                            localCert.projectId == it.projectId
+                                                    && localCert.projectPrice != it.projectPrice
+                                                    && it.status.equals("certified")
+                                        }
                                         .forEach { newPrice = true }
                             }
 

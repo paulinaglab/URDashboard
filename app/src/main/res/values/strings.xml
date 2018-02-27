@@ -9,7 +9,7 @@
     <string name="srs_label">Current queue settings (read only)</string>
     <string name="srs_queue_status_label">Status</string>
     <string name="srs_queue_on_label">Queue On</string>
-    <string name="srs_queue_off_label">Queue On</string>
+    <string name="srs_queue_off_label">Queue Off</string>
     <string name="srs_queue_validity_time_label">Request validity time</string>
     <string name="srs_queue_last_text">(%1d h %2d min)</string>
     <string name="srs_queue_last_text_only_min">(%d min)</string>
@@ -29,7 +29,7 @@
     <string name="dit_warning">This app is not compatible with the key you can get via \"API Access\" button from the previous Reviewer Dashboard.</string>
     <string name="dit_api_key_edit_hint">New Dashboard API key</string>
     <string name="dit_update_button">Update token</string>
-    <string name="dit_scan_qr_code">Scan</string>
+    <string name="dit_scan_qr_code">Scan QR</string>
     <string name="dit_cancel_button">Cancel</string>
     <string name="dit_token_incorrect_or_expired">Token incorrect or expired</string>
 

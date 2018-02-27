@@ -102,6 +102,9 @@ class MainActivity : AppCompatActivity(), MainContract.View, UpdateTokenDialog.T
             srs_queue_for_value_view.visibility = View.GONE
             srs_queue_for_value_label.visibility = View.GONE
             srs_json_sheet.visibility = View.GONE
+
+            srs_queue_end_time.text = "--:--"
+            srs_queue_left_time.text = ""
         }
 
         srj_requests_container.removeAllViews()
