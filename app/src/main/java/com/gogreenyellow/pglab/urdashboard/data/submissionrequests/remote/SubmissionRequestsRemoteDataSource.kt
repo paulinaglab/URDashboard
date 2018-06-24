@@ -73,6 +73,7 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
             }
 
             override fun failedToGetSubmissionRequest(code: Int) {
+                callback.refreshFinished()
                 TODO("probably going to ignore this for now, but maybe some kind of a notification for future?")
             }
         })

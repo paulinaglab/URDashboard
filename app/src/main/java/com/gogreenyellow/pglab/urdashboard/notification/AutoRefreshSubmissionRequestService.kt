@@ -2,6 +2,11 @@ package com.gogreenyellow.pglab.urdashboard.notification
 
 import android.app.job.JobParameters
 import android.content.Context
+import android.text.TextUtils
+import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
+import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionRequestsDataSource.RefreshCallback
+import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.SubmissionRequestsRepository
+import com.gogreenyellow.pglab.urdashboard.util.TokenUtil
 
 class AutoRefreshSubmissionRequestService : RefreshService() {
 
@@ -16,7 +21,23 @@ class AutoRefreshSubmissionRequestService : RefreshService() {
         }
     }
 
-    override fun onStartJob(p0: JobParameters?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onStartJob(params: JobParameters?): Boolean {
+        return refreshActiveRequests(params)
+    }
+
+    private fun refreshActiveRequests(params: JobParameters?): Boolean {
+        val token = PreferenceStorage.getInstance(this)?.token ?: return false
+
+        if (TextUtils.isEmpty(token) || TokenUtil.getTokenExpiresIn(token) <= 0)
+            return false
+
+        SubmissionRequestsRepository.refreshSubmissionRequests(token, object : RefreshCallback {
+            override fun refreshFinished() {
+                jobFinished(params, false)
+            }
+
+        })
+
+        return true
     }
 }
