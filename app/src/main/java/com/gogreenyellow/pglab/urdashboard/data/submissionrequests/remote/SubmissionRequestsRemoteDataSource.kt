@@ -1,9 +1,7 @@
 package com.gogreenyellow.pglab.urdashboard.data.submissionrequests.remote
 
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.gogreenyellow.pglab.urdashboard.URDashboard
 import com.gogreenyellow.pglab.urdashboard.api.AuthorizedJsonArrayRequest
 import com.gogreenyellow.pglab.urdashboard.api.AuthorizedJsonObjectRequest
@@ -14,7 +12,6 @@ import com.gogreenyellow.pglab.urdashboard.model.SubmissionRequest
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.CountDownLatch
-import javax.security.auth.callback.Callback
 
 /**
  * Created by Paulina on 2018-02-13.
@@ -65,11 +62,11 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
                             "https://review-api.udacity.com/api/v1/submission_requests/" + submissionRequest.id + ".json",
                             body,
                             Response.Listener {
-                                requestFinished(callback, latch)
+                                updateRequestFinished(latch, response, token, callback)
                             },
                             Response.ErrorListener {
-                                requestFinished(callback, latch)
                                 //TODO: ignoring for now, notification in the future
+                                updateRequestFinished(latch, response, token, callback)
                             })
                     URDashboard.INSTANCE.requestQueue.add(updateRequest)
                 }
@@ -94,7 +91,31 @@ object SubmissionRequestsRemoteDataSource : SubmissionRequestsDataSource {
         return body
     }
 
-    private fun requestFinished(callback: RefreshCallback, latch: CountDownLatch) {
+    private fun updateRequestFinished(latch: CountDownLatch, submissionRequests: List<SubmissionRequest>, authToken: String, callback: RefreshCallback) {
+        latch.countDown()
+        if (latch.count == 0L) {
+            refreshSubmissionRequests(authToken, submissionRequests, callback)
+        }
+    }
+
+    private fun refreshSubmissionRequests(authToken: String, submissionRequests: List<SubmissionRequest>, callback: RefreshCallback) {
+        val latch = CountDownLatch(submissionRequests.size)
+        for (submissionRequest in submissionRequests) {
+            val refreshRequest = AuthorizedJsonObjectRequest(authToken, Request.Method.PUT,
+                    "https://review-api.udacity.com/api/v1/submission_requests/" + submissionRequest.id + "/refresh.json",
+                    JSONObject(),
+                    Response.Listener {
+                        refreshRequestFinished(latch, callback)
+                    },
+                    Response.ErrorListener {
+                        //TODO: inform about errors
+                        refreshRequestFinished(latch, callback)
+                    })
+            URDashboard.INSTANCE.requestQueue.add(refreshRequest)
+        }
+    }
+
+    private fun refreshRequestFinished(latch: CountDownLatch, callback: RefreshCallback) {
         latch.countDown()
         if (latch.count == 0L) {
             callback.refreshFinished()
