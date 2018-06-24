@@ -2,6 +2,7 @@ package com.gogreenyellow.pglab.urdashboard.util
 
 import android.content.Context
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
+import com.gogreenyellow.pglab.urdashboard.notification.AutoRefreshSubmissionRequestService
 import com.gogreenyellow.pglab.urdashboard.notification.RefreshAssignedReviewsService
 import com.gogreenyellow.pglab.urdashboard.notification.RefreshPricesService
 import com.gogreenyellow.pglab.urdashboard.notification.RefreshSubmissionRequestsService
@@ -28,5 +29,10 @@ object JobPlanner {
             RefreshSubmissionRequestsService.schedule(context)
         else
             RefreshSubmissionRequestsService.cancel(context)
+
+        if (storage.isAutoRefresh)
+            AutoRefreshSubmissionRequestService.schedule(context)
+        else
+            AutoRefreshSubmissionRequestService.cancel(context)
     }
 }

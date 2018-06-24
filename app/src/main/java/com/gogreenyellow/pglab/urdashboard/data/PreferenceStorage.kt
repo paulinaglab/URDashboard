@@ -32,8 +32,18 @@ class PreferenceStorage private constructor(context: Context) {
         private val NOTIFY_PRICE_CHANGES = "notify price changes"
         private val NOTIFICATION_SOUND_PRICE_CHANGES = "notification sound price changes"
         private val REQUEST_INTERVAL = "interval"
+        private val AUTO_REFRESH = "auto refresh"
         private val TOKEN = "token"
     }
+
+    var isAutoRefresh: Boolean
+        get() {
+            return sharedPreferences.getBoolean(AUTO_REFRESH, false)
+        }
+        @SuppressLint("ApplySharedPref")
+        set(value) {
+            sharedPreferences.edit().putBoolean(AUTO_REFRESH, value).commit()
+        }
 
     var isNotifyNewAssignment: Boolean
         get() {
