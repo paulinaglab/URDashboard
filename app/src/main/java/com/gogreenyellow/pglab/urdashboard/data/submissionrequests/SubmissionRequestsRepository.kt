@@ -7,7 +7,7 @@ import com.gogreenyellow.pglab.urdashboard.data.submissionrequests.remote.Submis
  */
 object SubmissionRequestsRepository : SubmissionRequestsDataSource {
     override fun refreshSubmissionRequests(token: String, callback: SubmissionRequestsDataSource.RefreshCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        SubmissionRequestsRemoteDataSource.refreshSubmissionRequests(token, callback)
     }
 
 

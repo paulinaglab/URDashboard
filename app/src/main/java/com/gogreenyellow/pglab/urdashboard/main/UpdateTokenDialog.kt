@@ -54,13 +54,13 @@ class UpdateTokenDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity!!)
                 .setTitle(R.string.dit_update_token_title)
                 .setView(R.layout.dialog_insert_token)
                 .setPositiveButton(R.string.dit_update_button, null)
                 .setNeutralButton(R.string.dit_scan_qr_code, null)
 
-        if (arguments.getBoolean(ARG_CANCELABLE)) {
+        if (arguments!!.getBoolean(ARG_CANCELABLE)) {
             builder.setNegativeButton(R.string.dit_cancel_button) { _, _ -> dismiss() }
         }
 
@@ -70,25 +70,24 @@ class UpdateTokenDialog : DialogFragment() {
     private fun updateToken() {
         val tokenEditText = dialog?.findViewById<EditText>(R.id.am_token_edit_text)
         if (TextUtils.isEmpty(tokenEditText?.text)) {
-            listener.tokenUpdateFailed(arguments.getBoolean(ARG_CANCELABLE))
+            listener.tokenUpdateFailed(arguments!!.getBoolean(ARG_CANCELABLE))
             return
         }
 
         if (!TokenUtil.isValid(tokenEditText!!.text.toString())) {
-            listener.tokenUpdateFailed(arguments.getBoolean(ARG_CANCELABLE))
+            listener.tokenUpdateFailed(arguments!!.getBoolean(ARG_CANCELABLE))
             return
         }
 
-
-        PreferenceStorage.getInstance(activity)?.token = tokenEditText?.text.toString()
+        PreferenceStorage.getInstance(activity!!)?.token = tokenEditText?.text.toString()
         listener.tokenUpdated()
         dismiss()
     }
 
     private fun openScanner() {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,
+            ActivityCompat.requestPermissions(activity!!,
                     arrayOf(Manifest.permission.CAMERA),
                     1)
         } else {

@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
+import com.gogreenyellow.pglab.urdashboard.BuildConfig
 import com.gogreenyellow.pglab.urdashboard.R
 import com.gogreenyellow.pglab.urdashboard.data.PreferenceStorage
 import com.gogreenyellow.pglab.urdashboard.ui.SimpleMenu
@@ -60,6 +61,11 @@ class SettingsActivity : AppCompatActivity() {
                     PreferenceStorage.getInstance(this)?.priceChangesSound,
                     PRICE_CHANGES_SOUND_REQUEST_CODE)
         })
+
+        as_auto_refresh_overlay.setOnClickListener({ toggleAutoRefresh() })
+        initAutoRefreshSettingState()
+
+        hideObsoleteWidgets()
     }
 
     private fun initNewAssignmentSettingState() {
@@ -84,6 +90,11 @@ class SettingsActivity : AppCompatActivity() {
         initNotificationSoundName(
                 as_price_changes_sound_name,
                 psInstance.priceChangesSound)
+    }
+
+    private fun initAutoRefreshSettingState() {
+        val psInstance = PreferenceStorage.getInstance(this)
+        as_auto_refresh_switch.isChecked = psInstance!!.isAutoRefresh
     }
 
     private fun initNotificationSoundName(soundNameView: TextView, ringtoneUri: Uri?) {
@@ -195,5 +206,25 @@ class SettingsActivity : AppCompatActivity() {
         psInstance?.isNotifyPriceChanges = !(psInstance?.isNotifyPriceChanges!!)
         initPriceChangesSettingState()
         JobPlanner.scheduleJobs(this)
+    }
+
+    private fun toggleAutoRefresh() {
+        val psInstance = PreferenceStorage.getInstance(this)
+        psInstance?.isAutoRefresh = !(psInstance?.isAutoRefresh!!)
+        initAutoRefreshSettingState()
+        JobPlanner.scheduleJobs(this)
+    }
+
+    private fun hideObsoleteWidgets() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            as_incorrect_request_sound_overlay.visibility = View.GONE
+            as_incorrect_request_separator.visibility = View.GONE
+
+            as_new_review_sound_overlay.visibility = View.GONE
+            as_new_review_separator.visibility = View.GONE
+
+            as_price_changes_sound_overlay.visibility = View.GONE
+            as_price_changes_separator.visibility = View.GONE
+        }
     }
 }

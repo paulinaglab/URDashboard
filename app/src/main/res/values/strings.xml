@@ -61,6 +61,10 @@
     <string name="as_notify_price_changes_details">Get the info when the reward for project drops or rises</string>
     <string name="as_notification_sound_price_changes">Price change notification sound</string>
 
+    <string name="as_auto_refresh_subhead">Auto refresh</string>
+    <string name="as_auto_refresh_title">Automatically refresh requests</string>
+    <string name="as_auto_refesh_details">Have your submission requests refreshed by the app. (experimental)</string>
+
     <string name="select_notification_sound">Select sound</string>
 
 
