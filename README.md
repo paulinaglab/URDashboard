@@ -50,6 +50,4 @@ I fix the issue by updating my request: I remove one of the projects from submis
 
 Your data/token is never sent to any private server - it's stored on your device exclusively.
 
-The application only gets the data - it doesn't modify anything on the dashboard.
-
 It is all based on an undocumented API, so you use it at your own risk.
